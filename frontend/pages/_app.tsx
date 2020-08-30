@@ -11,7 +11,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "apollo-link-context";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
-//import { WebSocketLink } from "@apollo/link-ws";
+import { WebSocketLink } from "@apollo/link-ws";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("user");
@@ -23,14 +23,16 @@ const authLink = setContext((_, { headers }) => {
 	};
 });
 
-const httpLink = new HttpLink({ url: "http://localhost:4000" });
+const httpLink: HttpLink = new HttpLink({
+	uri: "http://localhost:4000/graphql",
+});
 
-// const wsLink = new WebSocketLink({
-// 	url: "ws://localhost:4000/graphql",
-// 	option: {
-// 		reconnect: true,
-// 	},
-// });
+const wsLink = new WebSocketLink({
+	uri: "ws://localhost:4000/graphql",
+	option: {
+		reconnect: true,
+	},
+});
 
 const splitLink = split(
 	({ query }) => {
@@ -40,13 +42,19 @@ const splitLink = split(
 			definition.operation === "subscription"
 		);
 	},
-	//	wsLink,
+	wsLink,
 	authLink.concat(httpLink)
 );
 
+// const client = new ApolloClient({
+// 	cache: new InMemoryCache(),
+// 	link: splitLink,
+// });
+
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: splitLink,
+	link: authLink.concat(httpLink),
+	// link: splitLink,
 });
 
 const MyApp = ({ Component, pageProps }): JSX.Element => {
