@@ -11,6 +11,7 @@ interface IUser {
 	id?: string;
 	firstName?: string;
 	lastName?: string;
+	avatar?: string;
 	email?: string;
 	gender?: Gender;
 	dateOfBirth?: string;
@@ -25,19 +26,31 @@ const userResolver = {
 			root: any,
 			{ firstName, lastName }: { firstName: string; lastName: string }
 		) => User.find({ firstName, lastName }),
-		findUserById: (root: any, { id }: { id: string }) =>
-			User.findOne({ _id: id }),
+		findUserById: (root: any, { id }: { id: string }) => User.findById(id),
+		findUserFriendsById: (root: any, { id }: { id: string }) =>
+			User.findById(id).populate("friends"),
+		findUserFriendsRequestsById: (root: any, { id }: { id: string }) =>
+			User.findById(id).populate("friendRequests"),
 	},
 	Mutation: {
 		addUser: async (
 			root: any,
-			{ firstName, lastName, email, gender, dateOfBirth, password }: IUser
+			{
+				firstName,
+				lastName,
+				avatar,
+				email,
+				gender,
+				dateOfBirth,
+				password,
+			}: IUser
 		) => {
 			const saltRounds = Object.freeze(10);
 
 			return await new User({
 				firstName,
 				lastName,
+				avatar,
 				email,
 				gender,
 				dateOfBirth,
@@ -46,7 +59,7 @@ const userResolver = {
 		},
 		editUser: async (
 			root: any,
-			{ id, firstName, lastName, email, gender, dateOfBirth }: IUser,
+			{ id, firstName, lastName, avatar, email, gender, dateOfBirth }: IUser,
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
@@ -54,6 +67,7 @@ const userResolver = {
 			return await User.findByIdAndUpdate(id, {
 				firstName,
 				lastName,
+				avatar,
 				email,
 				gender,
 				dateOfBirth,
@@ -76,10 +90,13 @@ const userResolver = {
 				email: user.email,
 				id: user._id,
 			};
+
 			return {
 				value: jwt.sign(userForToken, process.env.JWT_SECRET),
+				id: user._id,
 				firstName: user.firstName,
-				lastName: user.lastName
+				lastName: user.lastName,
+				
 			};
 		},
 	},

@@ -3,6 +3,9 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import Users from "../components/Users/Users";
 import SignIn from "../components/SignIn/SignIn";
+import Posts from "../components/Posts/Posts";
+import Friends from "../components/FriendsList/Friends";
+
 
 export default function Home(): JSX.Element {
 	return (
@@ -14,6 +17,9 @@ export default function Home(): JSX.Element {
 
 			<SignIn />
 			<Users />
+			<Friends />
+			<Posts />
+
 			<footer className={styles.footer}>
 				<a
 					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

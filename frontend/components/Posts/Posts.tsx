@@ -2,25 +2,28 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post, { IPost } from "./Post/Post";
+import { ALL_POSTS } from "../../queries/post.query";
 
 const Posts = (): JSX.Element => {
-	const result = useQuery(AlL_POSTS);
+	const result = useQuery(ALL_POSTS);
+
 	if (result.loading) return <div>Loading...</div>;
 
 	return (
 		<div>
-			<h1>Posts</h1>
-			{result.data.allPosts.map((post: IPost) => {
+			<h3>Posts</h3>
+			{result.data.allPosts.map((post: IPost) => (
 				<Post
 					key={uuid()}
-					firstName={post.firstName}
-					lastName={post.lastName}
+					id={post.id}
+					firstName={post?.user?.firstName}
+					lastName={post?.user?.lastName}
 					date={post.date}
-					content={post.content}
 					likes={post.likes}
+					content={post.content}
 					comments={post.comments}
-				/>;
-			})}
+				/>
+			))}
 		</div>
 	);
 };

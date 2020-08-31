@@ -1,24 +1,32 @@
 import { gql } from "@apollo/client";
 
-export const LOGIN = gql`
-	mutation login($email: String!, password: String!) {
-		login(email: $email, password: $password) {
-			value
-			firstName
-			lastName
+export const ALL_POSTS = gql`
+	query allPosts {
+		allPosts {
+			id
+			user {
+				firstName
+				lastName
+			}
+			date
+			content
+			likes
 		}
 	}
 `;
 
-export const POSTS = gql`
-	query allPosts {
-		allPosts {
-			firstName
-			lastName
-			content
-			date
+export const LIKE_POST = gql`
+	mutation likePost($id: ID!) {
+		likePost(id: $id) {
 			likes
-			comments
+		}
+	}
+`;
+
+export const DELETE_POST = gql`
+	mutation deletePost($id: ID!) {
+		deletePost(id: $id) {
+			id
 		}
 	}
 `;

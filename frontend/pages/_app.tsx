@@ -7,14 +7,14 @@ import {
 	ApolloProvider,
 	split,
 } from "@apollo/client";
-import { getMainDefinition } from "@apollo/client/utilities";
+//import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "apollo-link-context";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
-import { WebSocketLink } from "@apollo/link-ws";
+//import { WebSocketLink } from "@apollo/link-ws";
 
 const authLink = setContext((_, { headers }) => {
-	const token = localStorage.getItem("user");
+	const token = localStorage.getItem("token");
 	return {
 		headers: {
 			...headers,

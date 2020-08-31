@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 const userSchema = gql`
 	type Token {
 		value: String!
+		id: String!
 		firstName: String!
 		lastName: String!
 	}
@@ -22,12 +23,15 @@ const userSchema = gql`
 		allUsers: [User]!
 		findUser(firstName: String, lastName: String): [User!]
 		findUserById(id: ID!): User!
+		findUserFriendsById(id: ID!): User!
+		findUserFriendsRequestsById(id: ID!): User!
 	}
 	type Mutation {
 		addUser(
 			firstName: String!
 			lastName: String!
 			email: String!
+			avatar: String
 			gender: String!
 			password: String!
 			dateOfBirth: String!
@@ -36,6 +40,7 @@ const userSchema = gql`
 			firstName: String
 			lastName: String
 			email: String!
+			avatar: String
 			gender: String
 			password: String
 			dateOfBirth: String

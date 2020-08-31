@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../queries/user.query";
 
-type MouseEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
-
 const SignIn = (): JSX.Element => {
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [email, setEmail] = useState<string>("test@test.com");
+	const [password, setPassword] = useState<string>("testtest");
 	const [error, setError] = useState<boolean>(false);
 
 	const [key, setKey] = useState<string>("");
@@ -14,7 +12,7 @@ const SignIn = (): JSX.Element => {
 	const [login, result] = useMutation(SIGN_IN, {
 		onError: (error) => {
 			setError(true);
-			console.log(error.graphQLErrors[0].message);
+			alert(error.message);
 		},
 	});
 
@@ -25,9 +23,11 @@ const SignIn = (): JSX.Element => {
 	useEffect(() => {
 		if (result.data) {
 			const token = result.data.login.value;
+			const id = result.data.login.id;
 			const firstName = result.data.login.firstName;
 			const lastName = result.data.login.lastName;
 			localStorage.setItem("token", token);
+			localStorage.setItem("id", id);
 			localStorage.setItem("firstName", firstName);
 			localStorage.setItem("lastName", lastName);
 		}
