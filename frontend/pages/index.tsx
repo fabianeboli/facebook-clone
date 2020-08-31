@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import React from "react";
 import Users from "../components/Users/Users";
+import SignIn from "../components/SignIn/SignIn";
 
 export default function Home(): JSX.Element {
 	return (
@@ -11,7 +12,7 @@ export default function Home(): JSX.Element {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			
+			<SignIn />
 			<Users />
 			<footer className={styles.footer}>
 				<a

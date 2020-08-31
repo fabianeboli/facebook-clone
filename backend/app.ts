@@ -1,10 +1,10 @@
-import { populate } from "./populate";
+//import { populate } from "./populate";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer, PubSub } from "apollo-server-express";
 
 import jwt from "jsonwebtoken";
 import User from "./models/User.Schema";
@@ -15,6 +15,8 @@ dotenv.config();
 // CHANGE FRIEND REQUEST AND USER
 const PORT: number = Number(process.env.PORT) ?? 3001;
 const MONGO_URI: string = process.env.MONGO_URI ?? "";
+
+const pubsub = new PubSub();
 const app = express();
 
 mongoose.connect(MONGO_URI, {
@@ -41,7 +43,7 @@ const server = new ApolloServer({
 
 app.use(morgan("tiny"));
 app.use(cors());
-populate();
+//populate();
 
 server.applyMiddleware({ app });
 

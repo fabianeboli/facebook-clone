@@ -3,6 +3,8 @@ import { gql } from "apollo-server-express";
 const userSchema = gql`
 	type Token {
 		value: String!
+		firstName: String!
+		lastName: String!
 	}
 	type User {
 		id: ID!

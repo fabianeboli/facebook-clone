@@ -9,3 +9,16 @@ export const LOGIN = gql`
 		}
 	}
 `;
+
+export const POSTS = gql`
+	query allPosts {
+		allPosts {
+			firstName
+			lastName
+			content
+			date
+			likes
+			comments
+		}
+	}
+`;

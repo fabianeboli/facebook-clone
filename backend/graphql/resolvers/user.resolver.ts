@@ -20,7 +20,7 @@ interface IUser {
 const userResolver = {
 	Query: {
 		allUsers: async () =>
-			await await User.find({}).populate("friendRequests friends"),
+			await User.find({}).populate("friendRequests friends"),
 		findUser: (
 			root: any,
 			{ firstName, lastName }: { firstName: string; lastName: string }
@@ -78,6 +78,8 @@ const userResolver = {
 			};
 			return {
 				value: jwt.sign(userForToken, process.env.JWT_SECRET),
+				firstName: user.firstName,
+				lastName: user.lastName
 			};
 		},
 	},

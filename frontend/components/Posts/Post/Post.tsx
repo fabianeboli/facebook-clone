@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Comment, { IComment } from "../../Comment/Comment";
 
-interface IPost {
+export interface IPost {
 	firstName: string;
 	lastName: string;
 	date: string;
