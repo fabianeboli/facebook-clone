@@ -30,10 +30,10 @@ const friendResolver = {
 			}).save();
 
 			await User.findByIdAndUpdate(sender, {
-				$push: { friendRequests: friendRequest._id },
+				$push: { friendRequests: friendRequest.receiver },
 			});
 			await User.findByIdAndUpdate(receiver, {
-				$push: { friendRequests: friendRequest._id },
+				$push: { friendRequests: friendRequest.sender },
 			});
 		},
 		acceptFriendRequest: async (
@@ -48,10 +48,10 @@ const friendResolver = {
 			if (foundFriendRequest) {
 				// remove from friend request
 				await User.findByIdAndUpdate(foundFriendRequest.sender, {
-					$pull: { friendsRequests: foundFriendRequest._id },
+					$pull: { friendsRequests: foundFriendRequest.receiver },
 				});
 				await User.findByIdAndUpdate(foundFriendRequest.receiver, {
-					$pull: { friendsRequests: foundFriendRequest._id },
+					$pull: { friendsRequests: foundFriendRequest.sender },
 				});
 
 				// add to friendList

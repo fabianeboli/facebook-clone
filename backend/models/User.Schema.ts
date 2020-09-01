@@ -32,7 +32,7 @@ const UserSchema = new Schema({
 	hashedPassword: { type: String, required: true },
 	friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
 	friendRequests: [
-		{ type: Schema.Types.ObjectId, ref: "FriendRequest", default: [] },
+		{ type: Schema.Types.ObjectId, ref: "User", default: [] },
 	],
 	posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });

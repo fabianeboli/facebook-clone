@@ -17,7 +17,7 @@ const userSchema = gql`
 		hashedPassword: String!
 		avatar: String
 		friends: [User]!
-		friendRequests: [FriendRequest]!
+		friendRequests: [User]!
 	}
 	type Query {
 		allUsers: [User]!
