@@ -12,7 +12,6 @@ import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
 
 dotenv.config();
-// CHANGE FRIEND REQUEST AND USER
 const PORT: number = Number(process.env.PORT) ?? 3001;
 const MONGO_URI: string = process.env.MONGO_URI ?? "";
 

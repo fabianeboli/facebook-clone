@@ -8,7 +8,15 @@ import User from "../../models/User.Schema";
 const postResolver = {
 	Query: {
 		allPosts: async (): Promise<IPost[]> =>
-			await Post.find({}).populate("user comments"),
+			await Post.find({}).populate("user comments likedBy"),
+		isLikedByUser: async (
+			root: any,
+			{ id, userId }: IPost,
+			context: IContext
+		) => {
+			checkIfAuthenticated(context);
+			return await Post.find({ _id: id, likedBy: userId }).count();
+		},
 	},
 	Mutation: {
 		addPost: async (
@@ -29,10 +37,21 @@ const postResolver = {
 				});
 			}
 		},
-		likePost: async (root: any, { id }: IPost, context: IContext) => {
+		likePost: async (root: any, { id, userId }: IPost, context: IContext) => {
 			checkIfAuthenticated(context);
-			return await Post.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+			return await Post.findByIdAndUpdate(id, {
+				$inc: { likes: 1 },
+				$push: { likedBy: userId },
+			});
 		},
+		unLikePost: async (root: any, { id, userId }: IPost, context: IContext) => {
+			checkIfAuthenticated(context);
+			return await Post.findByIdAndUpdate(id, {
+				$inc: { likes: -1 },
+				$pull: { likedBy: userId },
+			});
+		},
+
 		deletePost: async (
 			root: any,
 			{ id }: { id: string },

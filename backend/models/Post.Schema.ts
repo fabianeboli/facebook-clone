@@ -6,6 +6,8 @@ export interface IPost extends Document {
 	content: string;
 	date: string;
 	comments?: string[];
+	likedBy: string[];
+	userId?: string;
 	likes?: number;
 }
 
@@ -14,6 +16,7 @@ const PostSchema = new Schema({
 	content: { type: String, required: true },
 	date: { type: String, required: true },
 	likes: { type: Number, default: 0 },
+	likedBy: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
 	comments: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
 });
 
