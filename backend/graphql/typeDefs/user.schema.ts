@@ -22,9 +22,9 @@ const userSchema = gql`
 	type Query {
 		allUsers: [User]!
 		findUser(firstName: String, lastName: String): [User!]
-		findUserById(id: ID!): User!
-		findUserFriendsById(id: ID!): User!
-		findUserFriendsRequestsById(id: ID!): User!
+		findUserById(id: String!): User!
+		findUserFriendsById(id: String!): [User]!
+		findUserFriendsRequestsById(id: String!): [User]!
 	}
 	type Mutation {
 		addUser(

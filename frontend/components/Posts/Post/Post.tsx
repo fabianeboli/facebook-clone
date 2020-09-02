@@ -1,4 +1,5 @@
 import Comment, { IComment } from "../../Comment/Comment";
+import React from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import {
 	LIKE_POST,
@@ -22,7 +23,6 @@ export interface IPost {
 }
 
 const Post = (props: IPost): JSX.Element => {
-
 	const [like, { loading: likeLoading }] = useMutation(LIKE_POST, {
 		refetchQueries: [
 			{ query: FIND_POST_BY_ID, variables: { id: props.id } },
@@ -52,11 +52,11 @@ const Post = (props: IPost): JSX.Element => {
 	const likeFunction = async () => {
 		data?.isLikedByUser
 			? await unlike({
-				variables: { id: props.id, userId: localStorage.getItem("id") },
-			})
+					variables: { id: props.id, userId: localStorage.getItem("id") },
+			  })
 			: await like({
-				variables: { id: props.id, userId: localStorage.getItem("id") },
-			});
+					variables: { id: props.id, userId: localStorage.getItem("id") },
+			  });
 	};
 
 	return (

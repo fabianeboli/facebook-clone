@@ -36,14 +36,15 @@ export const SIGNUP = gql`
 
 export const FIND_USER_FRIENDS_BY_ID = gql`
 	query findUserFriendsById($id: String!) {
- 		 findUserFriendsById(id: $id) {
+		findUserFriendsById(id: $id) {
+			id
 			friends {
 				firstName
 				lastName
 				avatar
 			}
-  		}
-	}	
+		}
+	}
 `;
 
 export const SIGN_IN = gql`

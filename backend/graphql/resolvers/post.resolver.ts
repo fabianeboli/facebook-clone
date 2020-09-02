@@ -23,7 +23,6 @@ const postResolver = {
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
-			console.log(Post.find({ _id: id, likedBy: userId }).count());
 			return await Post.find({ _id: id, likedBy: userId }).count();
 		},
 	},

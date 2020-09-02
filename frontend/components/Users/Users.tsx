@@ -11,7 +11,7 @@ const Users = (): JSX.Element => {
 	return (
 		<div>
 			<h3>List Users</h3>
-			{result.data.allUsers.map((user: IUser) => (
+			{result?.data?.allUsers.map((user: IUser) => (
 				<div key={uuid()}>
 					{user.firstName}
 					{user.lastName}

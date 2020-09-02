@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import { Gender } from "./../../populate";
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import bcrypt from "bcrypt";
 import { UserInputError } from "apollo-server-express";
 import jwt from "jsonwebtoken";
@@ -27,10 +27,10 @@ const userResolver = {
 			{ firstName, lastName }: { firstName: string; lastName: string }
 		) => User.find({ firstName, lastName }),
 		findUserById: (root: any, { id }: { id: string }) => User.findById(id),
-		findUserFriendsById: (root: any, { id }: { id: string }) =>
-			User.findById(id).populate("friends"),
-		findUserFriendsRequestsById: (root: any, { id }: { id: string }) =>
-			User.findById(id).populate("friendRequests"),
+		findUserFriendsById: async (root: any, { id }: { id: string }) =>
+			await User.find({ _id: id }).populate("friends"),
+		findUserFriendsRequestsById: async (root: any, { id }: { id: string }) =>
+			await User.find({ _id: id }).populate("friendRequests"),
 	},
 	Mutation: {
 		addUser: async (
@@ -96,7 +96,6 @@ const userResolver = {
 				id: user._id,
 				firstName: user.firstName,
 				lastName: user.lastName,
-				
 			};
 		},
 	},
