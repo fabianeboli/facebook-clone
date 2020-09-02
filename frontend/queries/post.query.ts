@@ -15,10 +15,24 @@ export const ALL_POSTS = gql`
 	}
 `;
 
+export const FIND_POST_BY_ID = gql`
+	query findPostById($id: String!) {
+		findPostById(id: $id) {
+			id
+			user {
+				firstName
+				lastName
+			}
+			date
+			content
+			likes
+		}
+	}
+`;
 
 export const IS_LIKED_BY_USER = gql`
-	query ($id: String!, $userId: String!) {
-		isLikedByUser(id: $id, userId: $userId) 
+	query isLikedByUser($id: String!, $userId: String!) {
+		isLikedByUser(id: $id, userId: $userId)
 	}
 `;
 
@@ -83,4 +97,3 @@ export const DELETE_POST = gql`
 // 	}
 
 // `;
-
