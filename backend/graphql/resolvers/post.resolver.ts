@@ -9,12 +9,21 @@ const postResolver = {
 	Query: {
 		allPosts: async (): Promise<IPost[]> =>
 			await Post.find({}).populate("user comments likedBy"),
+		findPostById: async (
+			root: any,
+			{ id }: { id: string },
+			context: IContext
+		): Promise<IPost | null> => {
+			checkIfAuthenticated(context);
+			return await Post.findById(id);
+		},
 		isLikedByUser: async (
 			root: any,
 			{ id, userId }: IPost,
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
+			console.log(Post.find({ _id: id, likedBy: userId }).count());
 			return await Post.find({ _id: id, likedBy: userId }).count();
 		},
 	},

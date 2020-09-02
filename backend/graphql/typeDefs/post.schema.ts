@@ -10,6 +10,7 @@ const postSchema = gql`
 	}
 	type Query {
 		allPosts: [Post]
+		findPostById(id: String!): Post
 		isLikedByUser(id: String!, userId: String!): Boolean!
 	}
 	type Mutation {

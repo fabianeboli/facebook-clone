@@ -1,9 +1,7 @@
-import React, { FC, useState } from "react";
 import Comment, { IComment } from "../../Comment/Comment";
 import { useMutation, useQuery } from "@apollo/client";
 import {
 	LIKE_POST,
-	ALL_POSTS,
 	UNLIKE_POST,
 	IS_LIKED_BY_USER,
 	FIND_POST_BY_ID,
@@ -24,11 +22,8 @@ export interface IPost {
 }
 
 const Post = (props: IPost): JSX.Element => {
-	// !TODO BUTTON SHOULD BE DISABLED WHILE LIKING OR UNLIKING
-	// !TODO BUTTON SHOULD DYNAMICALLY CHANGE TEXT
-	const [loading, setLoading] = useState<boolean>(false);
 
-	const [like] = useMutation(LIKE_POST, {
+	const [like, { loading: likeLoading }] = useMutation(LIKE_POST, {
 		refetchQueries: [
 			{ query: FIND_POST_BY_ID, variables: { id: props.id } },
 			{
@@ -37,7 +32,7 @@ const Post = (props: IPost): JSX.Element => {
 			},
 		],
 	});
-	const [unLike] = useMutation(UNLIKE_POST, {
+	const [unlike, { loading: unlikeLoading }] = useMutation(UNLIKE_POST, {
 		refetchQueries: [
 			{ query: FIND_POST_BY_ID, variables: { id: props.id } },
 			{
@@ -54,34 +49,14 @@ const Post = (props: IPost): JSX.Element => {
 		},
 	});
 
-	const likeFunction = () => {
-		setLoading(true);
+	const likeFunction = async () => {
 		data?.isLikedByUser
-			? unLike({
-					variables: { id: props.id, userId: localStorage.getItem("id") },
-			  })
-			: like({
-					variables: { id: props.id, userId: localStorage.getItem("id") },
-			  });
-		setLoading(false);
-	};
-
-	const LikeUnLikeButton = (): JSX.Element => {
-		console.log(data?.isLikedByUser);
-		const likeButton = (
-			<button disabled={loading} onClick={() => likeFunction()}>
-				{" "}
-				Like{" "}
-			</button>
-		);
-
-		const unLikeButton = (
-			<button disabled={loading} onClick={() => likeFunction()}>
-				{" "}
-				Unlike{" "}
-			</button>
-		);
-		return data?.isLikedByUser ? unLikeButton : likeButton;
+			? await unlike({
+				variables: { id: props.id, userId: localStorage.getItem("id") },
+			})
+			: await like({
+				variables: { id: props.id, userId: localStorage.getItem("id") },
+			});
 	};
 
 	return (
@@ -95,7 +70,14 @@ const Post = (props: IPost): JSX.Element => {
 			<div>
 				<p>{props.content}</p>
 			</div>
-			<div>{props.likes}</div> {LikeUnLikeButton()}
+			<div>{props.likes}</div>
+			<button
+				disabled={data?.isLikedByUser ? unlikeLoading : likeLoading}
+				onClick={() => likeFunction()}
+			>
+				{" "}
+				{data?.isLikedByUser ? <div> Like</div> : <div> Unlike </div>}
+			</button>
 			<div>
 				{props?.comments?.map((comment: IComment) => {
 					<Comment
