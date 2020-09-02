@@ -4,10 +4,16 @@ import React from "react";
 import Users from "../components/Users/Users";
 import SignIn from "../components/SignIn/SignIn";
 import Posts from "../components/Posts/Posts";
-import Friends from "../components/FriendsList/Friends";
-
+import Friends from "../components/Friends/Friends";
+import FriendRequests from "../components/FriendRequests/FriendRequests";
 
 export default function Home(): JSX.Element {
+	// !TODO Add friend requests
+	// !TODO Add sign up
+	// !TODO Ability to remove own post
+	// !TODO Ability to add new post
+	// !TODO Add comments
+	// !TODO Add user profiles
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -17,6 +23,7 @@ export default function Home(): JSX.Element {
 
 			<SignIn />
 			<Users />
+			<FriendRequests />
 			<Friends />
 			<Posts />
 
