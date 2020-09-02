@@ -45,7 +45,7 @@ const userSchema = gql`
 			password: String
 			dateOfBirth: String
 		): User!
-		deleteUser(id: ID!): User
+		deleteUser(id: String!): User
 		login(email: String!, password: String!): Token!
 	}
 `;

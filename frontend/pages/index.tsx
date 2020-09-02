@@ -6,10 +6,9 @@ import SignIn from "../components/SignIn/SignIn";
 import Posts from "../components/Posts/Posts";
 import Friends from "../components/Friends/Friends";
 import FriendRequests from "../components/FriendRequests/FriendRequests";
+import SignUp from "../components/SignUpForm/SignUp";
 
 export default function Home(): JSX.Element {
-	// !TODO Add friend requests
-	// !TODO Add sign up
 	// !TODO Ability to remove own post
 	// !TODO Ability to add new post
 	// !TODO Add comments
@@ -22,10 +21,12 @@ export default function Home(): JSX.Element {
 			</Head>
 
 			<SignIn />
+			<SignUp/>
 			<Users />
 			<FriendRequests />
 			<Friends />
 			<Posts />
+			
 
 			<footer className={styles.footer}>
 				<a

@@ -10,30 +10,6 @@ export const ALL_USERS = gql`
 	}
 `;
 
-export const SIGNUP = gql`
-	mutation createUser(
-		$firstName: String!
-		$lastName: String!
-		$email: String!
-		$gender: String!
-		$dateOfBirth: String!
-		$password: String!
-	) {
-		createUser(
-			firstName: $firstName
-			lastName: $lastName
-			email: $email
-			gender: $gender
-			dateOfBirth: $dateOfBirth
-			password: $password
-		) {
-			firstName
-			lastName
-			email
-		}
-	}
-`;
-
 export const FIND_USER_FRIENDS_BY_ID = gql`
 	query findUserFriendsById($id: String!) {
 		findUserFriendsById(id: $id) {
@@ -54,6 +30,30 @@ export const FIND_USER_FRIEND_REQUESTS_BY_ID = gql`
 				lastName
 				avatar
 			}
+		}
+	}
+`;
+
+export const ADD_USER = gql`
+	mutation addUser(
+		$firstName: String!
+		$lastName: String!
+		$email: String!
+		$gender: String!
+		$dateOfBirth: String!
+		$password: String!
+	) {
+		addUser(
+			firstName: $firstName
+			lastName: $lastName
+			email: $email
+			gender: $gender
+			dateOfBirth: $dateOfBirth
+			password: $password
+		) {
+			firstName
+			lastName
+			email
 		}
 	}
 `;

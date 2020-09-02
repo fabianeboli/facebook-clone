@@ -20,7 +20,7 @@ const postSchema = gql`
 		): Post
 		likePost(id: String!, userId: String!): Post
 		unLikePost(id: String!, userId: String!): Post
-		deletePost(id: ID!): Post
+		deletePost(id: String!): Post
 	}
 `;
 
