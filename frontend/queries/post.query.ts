@@ -5,6 +5,7 @@ export const ALL_POSTS = gql`
 		allPosts {
 			id
 			user {
+				id
 				firstName
 				lastName
 			}
@@ -20,6 +21,7 @@ export const FIND_POST_BY_ID = gql`
 		findPostById(id: $id) {
 			id
 			user {
+				id
 				firstName
 				lastName
 			}
@@ -61,7 +63,7 @@ export const UNLIKE_POST = gql`
 `;
 
 export const DELETE_POST = gql`
-	mutation deletePost($id: ID!) {
+	mutation deletePost($id: String!) {
 		deletePost(id: $id) {
 			id
 		}

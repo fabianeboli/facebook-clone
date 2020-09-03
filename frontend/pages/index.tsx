@@ -11,7 +11,6 @@ import NewPost from "../components/NewPost/NewPost";
 
 export default function Home(): JSX.Element {
 	// !TODO Ability to remove own post
-	// !TODO Ability to add new post
 	// !TODO Add comments
 	// !TODO Add user profiles
 	return (

@@ -6,16 +6,16 @@ import {
 	UNLIKE_POST,
 	IS_LIKED_BY_USER,
 	FIND_POST_BY_ID,
+	DELETE_POST,
 } from "../../../queries/post.query";
 
 export interface IPost {
 	id: string;
 	user?: {
+		id: string;
 		firstName: string;
 		lastName: string;
 	};
-	firstName: string;
-	lastName: string;
 	date: string;
 	content: string;
 	likes: number;
@@ -23,6 +23,8 @@ export interface IPost {
 }
 
 const Post = (props: IPost): JSX.Element => {
+	// LIKE OR UNLIKE POST
+
 	const [like, { loading: likeLoading }] = useMutation(LIKE_POST, {
 		refetchQueries: [
 			{ query: FIND_POST_BY_ID, variables: { id: props.id } },
@@ -49,6 +51,8 @@ const Post = (props: IPost): JSX.Element => {
 		},
 	});
 
+	const [removePost] = useMutation(DELETE_POST);
+
 	const likeFunction = async () => {
 		data?.isLikedByUser
 			? await unlike({
@@ -59,12 +63,25 @@ const Post = (props: IPost): JSX.Element => {
 			  });
 	};
 
+	// DELETE POST
+
+	const deletePost = async () => {
+		await removePost({ variables: { id: props.id } });
+	};
+
+	const deleteButton: JSX.Element = (
+		<button onClick={deletePost}>DELETE POST</button>
+	);
+
 	return (
 		<div>
 			<div>
 				<h4>
-					{props.user?.firstName} {props.user?.lastName}{" "}
+					{props?.user?.firstName} {props?.user?.lastName}{" "}
 					<span>{props.date}</span>
+				<div>
+					{props?.user?.id === localStorage.getItem("id") && deleteButton}
+				</div>
 				</h4>
 			</div>
 			<div>
@@ -76,7 +93,7 @@ const Post = (props: IPost): JSX.Element => {
 				onClick={() => likeFunction()}
 			>
 				{" "}
-				{data?.isLikedByUser ? <div> Like</div> : <div> Unlike </div>}
+				{data?.isLikedByUser ? <div> Unlike </div> : <div> Like</div>}
 			</button>
 			<div>
 				{props?.comments?.map((comment: IComment) => {

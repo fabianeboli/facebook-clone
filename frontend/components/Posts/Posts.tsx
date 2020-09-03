@@ -1,8 +1,8 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post, { IPost } from "./Post/Post";
-import { ALL_POSTS } from "../../queries/post.query";
+import { ALL_POSTS, DELETE_POST } from "../../queries/post.query";
 
 const Posts = (): JSX.Element => {
 	const result = useQuery(ALL_POSTS);
@@ -16,8 +16,7 @@ const Posts = (): JSX.Element => {
 				<Post
 					key={uuid()}
 					id={post.id}
-					firstName={post?.user?.firstName}
-					lastName={post?.user?.lastName}
+					user={post?.user}
 					date={post.date}
 					likes={post.likes}
 					content={post.content}
