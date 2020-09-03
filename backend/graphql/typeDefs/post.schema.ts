@@ -14,10 +14,7 @@ const postSchema = gql`
 		isLikedByUser(id: String!, userId: String!): Boolean!
 	}
 	type Mutation {
-		addPost(
-			date: String!
-			content: String!
-		): Post
+		addPost(content: String!): Post
 		likePost(id: String!, userId: String!): Post
 		unLikePost(id: String!, userId: String!): Post
 		deletePost(id: String!): Post

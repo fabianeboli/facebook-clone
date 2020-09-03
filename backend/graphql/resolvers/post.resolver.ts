@@ -1,3 +1,4 @@
+import moment from "moment";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
@@ -29,19 +30,21 @@ const postResolver = {
 	Mutation: {
 		addPost: async (
 			root: any,
-			{ content, date }: IPost,
+			{ content }: IPost,
 			context: IContext
 		): Promise<IPost> => {
 			checkIfAuthenticated(context);
 			const foundUser = await User.findById(context.currentUser._id);
-			const post = new Post({ user: foundUser?._id, content, date }).populate(
-				"user"
-			);
+			const post = new Post({
+				user: foundUser?._id,
+				content,
+				date: moment().format("LLL"),
+			}).populate("user");
 			try {
 				return await post.save();
 			} catch (error) {
 				throw new UserInputError(error.message, {
-					invalidArgs: { foundUser, content, date },
+					invalidArgs: { foundUser, content },
 				});
 			}
 		},

@@ -5,13 +5,14 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
 import { ApolloServer, PubSub } from "apollo-server-express";
-
+import moment from "moment";
 import jwt from "jsonwebtoken";
 import User from "./models/User.Schema";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
-
 dotenv.config();
+moment.locale("en-gb");
+
 const PORT: number = Number(process.env.PORT) ?? 3001;
 const MONGO_URI: string = process.env.MONGO_URI ?? "";
 
