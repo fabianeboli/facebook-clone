@@ -16,10 +16,10 @@ frontend/node_modules
 .pnp.js
 
 # testing
+frontend/.next
 /coverage
 
 # next.js
-frontend/.next
 frontend/out/
 
 # production
