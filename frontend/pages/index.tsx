@@ -10,9 +10,12 @@ import SignUp from "../components/SignUpForm/SignUp";
 import NewPost from "../components/NewPost/NewPost";
 
 export default function Home(): JSX.Element {
-	// !TODO Ability to remove own post
-	// !TODO Add comments
+	// !TODO Add comments. ADDED NEW COMMENT. FINISH IT TOMORROW 
 	// !TODO Add user profiles
+	// !TODO Add to Friends 
+	// !TODO Remove from Friends
+	// !TODO Add to FriendRequest
+	// !TODO Remove from FriendRequest
 	return (
 		<div className={styles.container}>
 			<Head>

@@ -23,6 +23,7 @@ export interface IPost {
 }
 
 const Post = (props: IPost): JSX.Element => {
+	
 	// LIKE OR UNLIKE POST
 
 	const [like, { loading: likeLoading }] = useMutation(LIKE_POST, {
@@ -73,15 +74,18 @@ const Post = (props: IPost): JSX.Element => {
 		<button onClick={deletePost}>DELETE POST</button>
 	);
 
+	// ADD COMMENT
+
+
 	return (
 		<div>
 			<div>
 				<h4>
 					{props?.user?.firstName} {props?.user?.lastName}{" "}
 					<span>{props.date}</span>
-				<div>
-					{props?.user?.id === localStorage.getItem("id") && deleteButton}
-				</div>
+					<div>
+						{props?.user?.id === localStorage.getItem("id") && deleteButton}
+					</div>
 				</h4>
 			</div>
 			<div>
