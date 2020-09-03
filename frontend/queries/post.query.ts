@@ -36,6 +36,14 @@ export const IS_LIKED_BY_USER = gql`
 	}
 `;
 
+export const ADD_POST = gql`
+	mutation addPost($content: String!) {
+		addPost(content: $content) {
+			id
+		}
+	}
+`;
+
 export const LIKE_POST = gql`
 	mutation likePost($id: String!, $userId: String!) {
 		likePost(id: $id, userId: $userId) {
@@ -59,41 +67,3 @@ export const DELETE_POST = gql`
 		}
 	}
 `;
-
-// export const POSTS = gql`
-// 	query allPosts {
-// 		allPosts {
-// 			id
-// 			user {
-// 				firstName
-// 				lastName
-// 			}
-// 			date
-// 			content
-// 			likes
-// 		}
-// 	}
-
-// 	query isLikedByUser($id: ID!, $userId: ID!) {
-// 		isLikedByUser(id: $id, userId: $userId)
-// 	}
-
-// 	mutation likePost($id: ID!, $userId: ID!) {
-// 		likePost(id: $id, userId: $userId) {
-// 			likes
-// 		}
-// 	}
-
-// 	mutation unLikePost($id: ID!, $userId: ID!) {
-// 		unLikePost(id: $id, userId: $userId) {
-// 			likes
-// 		}
-// 	}
-
-// 	mutation deletePost($id: ID!) {
-// 		deletePost(id: $id) {
-// 			id
-// 		}
-// 	}
-
-// `;

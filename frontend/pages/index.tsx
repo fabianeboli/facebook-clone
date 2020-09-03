@@ -7,6 +7,7 @@ import Posts from "../components/Posts/Posts";
 import Friends from "../components/Friends/Friends";
 import FriendRequests from "../components/FriendRequests/FriendRequests";
 import SignUp from "../components/SignUpForm/SignUp";
+import NewPost from "../components/NewPost/NewPost";
 
 export default function Home(): JSX.Element {
 	// !TODO Ability to remove own post
@@ -21,12 +22,12 @@ export default function Home(): JSX.Element {
 			</Head>
 
 			<SignIn />
-			<SignUp/>
+			<SignUp />
+			<NewPost />
 			<Users />
 			<FriendRequests />
 			<Friends />
 			<Posts />
-			
 
 			<footer className={styles.footer}>
 				<a
