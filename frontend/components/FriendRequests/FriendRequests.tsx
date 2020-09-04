@@ -23,15 +23,13 @@ const FriendRequests = () => {
 	return (
 		<div>
 			<h2>My friends Requests</h2>
-			{data.findUserFriendsRequestsById.map((friend: IFriend) => (
-				<>
-					<Friend
-						key={uuid()}
-						firstName={friend.firstName}
-						lastName={friend.lastName}
-						avatar={friend.avatar}
-					/>
-				</>
+			{data.findUserFriendsRequestsById[0].friendRequests.map((friend: IFriend) => (
+				<Friend
+					key={uuid()}
+					firstName={friend.firstName}
+					lastName={friend.lastName}
+					avatar={friend.avatar}
+				/>
 			))}
 		</div>
 	);

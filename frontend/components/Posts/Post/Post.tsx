@@ -77,8 +77,6 @@ const Post = (props: IPost): JSX.Element => {
 		<button onClick={deletePost}>DELETE POST</button>
 	);
 
-	// ADD COMMENT
-
 	return (
 		<div>
 			<div>
