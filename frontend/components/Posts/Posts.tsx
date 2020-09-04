@@ -13,7 +13,7 @@ const Posts = (): JSX.Element => {
 		<div>
 			<h3>Posts</h3>
 			{result.data.allPosts.map((post: IPost) => (
-				<Post
+				<Post 
 					key={uuid()}
 					id={post.id}
 					user={post?.user}

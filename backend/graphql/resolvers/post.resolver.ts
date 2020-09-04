@@ -16,7 +16,7 @@ const postResolver = {
 			context: IContext
 		): Promise<IPost | null> => {
 			checkIfAuthenticated(context);
-			return await Post.findById(id).populate("user");
+			return await Post.findById(id).populate("user comments");
 		},
 		isLikedByUser: async (
 			root: any,

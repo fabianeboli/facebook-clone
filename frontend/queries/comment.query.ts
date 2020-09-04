@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 export const ADD_COMMENT = gql`
 	mutation addComment($user: String!, $post: String!, $content: String!) {
-		addComment(user: $user, post: $post, string: $string) {
-			id
+		addComment(user: $user, post: $post, content: $content) {
+			content
 		}
 	}
 `;
@@ -17,24 +17,26 @@ export const EDIT_COMMENT = gql`
 `;
 
 export const LIKE_COMMENT = gql`
-	mutation likeComment(id: $id) {
-		likeComment(id: $Id) {
+	mutation likeComment($id: String!) {
+		likeComment(id: $id) {
 			id
 		}
 	}
 `;
 
 export const UNLIKE_COMMENT = gql`
-	mutation unlikeComment(id: $id) {
-		unlikeComment(id: $Id) {
+	mutation unlikeComment($id: String!) {
+		unlikeComment(id: $id) {
 			id
 		}
 	}
 `;
 
 export const REMOVE_COMMENT = gql`
-	mutation removeComment(id: String!) {
-		id
+	mutation removeComment($id: String!) {
+		removeComment(id: $id) {
+			id
+		}
 
 	}
 `;

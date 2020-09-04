@@ -1,5 +1,5 @@
 import Comment, { IComment } from "../../Comment/Comment";
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import {
 	LIKE_POST,
@@ -8,6 +8,8 @@ import {
 	FIND_POST_BY_ID,
 	DELETE_POST,
 } from "../../../queries/post.query";
+import NewComment from "../../NewComment/NewComment";
+import { v4 as uuid } from "uuid";
 
 export interface IPost {
 	id: string;
@@ -23,7 +25,8 @@ export interface IPost {
 }
 
 const Post = (props: IPost): JSX.Element => {
-	
+	const [toggleComment, setToggleComment] = useState<boolean>(false);
+
 	// LIKE OR UNLIKE POST
 
 	const [like, { loading: likeLoading }] = useMutation(LIKE_POST, {
@@ -76,7 +79,6 @@ const Post = (props: IPost): JSX.Element => {
 
 	// ADD COMMENT
 
-
 	return (
 		<div>
 			<div>
@@ -99,18 +101,27 @@ const Post = (props: IPost): JSX.Element => {
 				{" "}
 				{data?.isLikedByUser ? <div> Unlike </div> : <div> Like</div>}
 			</button>
-			<div>
-				{props?.comments?.map((comment: IComment) => {
+
+			<button onClick={() => setToggleComment(!toggleComment)}>
+				{toggleComment ? <div>Close comment</div> : <div>Add new Comment</div>}
+			</button>
+			{toggleComment && <div>{<NewComment id={props.id} />}</div>}
+			<p>
+				{console.log(props.comments[1]?.content)}
+				{/* {<p>{props.comments.map((comment) => comment.content)}</p>} */}
+				{props.comments.map((comment) => (
+					// <p> {comment.content} </p>
 					<Comment
-						firstName={comment.firstName}
-						lastName={comment.lastName}
-						content={comment.content}
-						date={comment.date}
-						likes={comment.likes}
-						comments={comment.comments}
-					/>;
-				})}
-			</div>
+						key={uuid()}
+						firstName={comment?.firstName}
+						lastName={comment?.lastName}
+						content={comment?.content}
+						date={comment?.date}
+						likes={comment?.likes}
+						comments={comment?.comments}
+					/>
+				))}
+			</p>
 		</div>
 	);
 };

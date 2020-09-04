@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_POST, ALL_POSTS, FIND_POST_BY_ID } from "../../queries/post.query";
+import { FIND_POST_BY_ID } from "../../queries/post.query";
 import { ADD_COMMENT } from "../../queries/comment.query";
 
 interface INewComment {
 	id: string;
 }
 
-const NewComment = (props: INewComment) => {
+const NewComment: FC<INewComment> = (props: INewComment): JSX.Element => {
 	const [content, setContent] = useState<string>("");
 	const [addComment] = useMutation(ADD_COMMENT, {
-		refetchQueries: [{ query: FIND_POST_BY_ID, variables: { id: props.id } }],
+		refetchQueries: [
+			{
+				query: FIND_POST_BY_ID,
+				variables: {
+					id: props.id,
+				},
+			},
+		],
 	});
 
 	const submit = async (event) => {
 		event.preventDefault();
-		await addComment({ variables: { content } });
+		await addComment({
+			variables: {
+				user: localStorage.getItem("id"),
+				post: props.id,
+				content: content,
+			},
+		});
 		setContent("");
 	};
 

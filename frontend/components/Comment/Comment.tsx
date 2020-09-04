@@ -12,7 +12,9 @@ export interface IComment {
 const Comment = (props: IComment): JSX.Element => {
 	return (
 		<div>
+			START-----------------
 			<div>
+			
 				<h4>
 					{props.firstName} {props.lastName} <span>{props.date}</span>
 				</h4>
@@ -22,7 +24,7 @@ const Comment = (props: IComment): JSX.Element => {
 			</div>
 			<div>{props.likes}</div>
 			<div>
-				{props.comments.map((comment) => {
+				{props?.comments?.map((comment) => {
 					<Comment
 						firstName={comment.firstName}
 						lastName={comment.lastName}
@@ -33,6 +35,7 @@ const Comment = (props: IComment): JSX.Element => {
 					/>;
 				})}
 			</div>
+			END-------------------
 		</div>
 	);
 };

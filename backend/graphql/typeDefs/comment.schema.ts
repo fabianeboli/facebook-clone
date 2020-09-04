@@ -18,7 +18,8 @@ const commentSchema = gql`
 		addComment(user: String!, post: String!, content: String!): Comment!
 		editComment(id: String!, content: String!): Comment!
 		likeComment(id: String!): Comment!
-		removeComment(id: String!): Comment!
+		unlikeComment(id: String!): Comment!
+		removeComment(post: String!, id: String!): Comment
 	}
 `;
 

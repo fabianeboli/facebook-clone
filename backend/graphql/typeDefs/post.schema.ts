@@ -7,6 +7,7 @@ const postSchema = gql`
 		date: String!
 		content: String!
 		likes: Int
+		comments: [Comment]
 	}
 	type Query {
 		allPosts: [Post]

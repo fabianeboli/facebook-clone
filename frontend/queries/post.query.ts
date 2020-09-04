@@ -12,6 +12,14 @@ export const ALL_POSTS = gql`
 			date
 			content
 			likes
+			comments {
+				post
+				# user {
+				# id	
+				# }
+				date
+				content
+			}
 		}
 	}
 `;
