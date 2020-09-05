@@ -46,6 +46,7 @@ const userSchema = gql`
 			dateOfBirth: String
 		): User!
 		deleteUser(id: String!): User
+		removeFromFriends(id: String!, friendId: String!): User
 		login(email: String!, password: String!): Token!
 	}
 `;

@@ -76,6 +76,12 @@ const userResolver = {
 		deleteUser: async (root: any, { id }: { id: string }) => {
 			return await User.findByIdAndDelete(id);
 		},
+		removeFromFriends: async (
+			root: any,
+			{ id, friendId }: { id: string; friendId: string }
+		) => {
+			return await User.findByIdAndUpdate(id, { $pull: { friends: friendId } });
+		},
 		login: async (
 			root: any,
 			{ email, password }: { email: string; password: string }

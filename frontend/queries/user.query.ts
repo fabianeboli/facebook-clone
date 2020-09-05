@@ -15,6 +15,7 @@ export const FIND_USER_FRIENDS_BY_ID = gql`
 	query findUserFriendsById($id: String!) {
 		findUserFriendsById(id: $id) {
 			friends {
+				id
 				firstName
 				lastName
 				avatar
@@ -27,10 +28,19 @@ export const FIND_USER_FRIEND_REQUESTS_BY_ID = gql`
 	query findUserFriendsRequestsById($id: String!) {
 		findUserFriendsRequestsById(id: $id) {
 			friendRequests {
+				id
 				firstName
 				lastName
 				avatar
 			}
+		}
+	}
+`;
+
+export const REMOVE_FROM_FRIENDS = gql`
+	mutation removeFromFriends($id: String!, $friendId: String!) {
+		removeFromFriends(id: $id, friendId: $friendId) {
+			id
 		}
 	}
 `;

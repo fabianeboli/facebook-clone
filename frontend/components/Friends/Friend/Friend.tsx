@@ -1,6 +1,7 @@
 import React from "react";
 
 export interface IFriend {
+	id?: string;
 	firstName: string;
 	lastName: string;
 	avatar: string;

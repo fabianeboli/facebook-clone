@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Friend, { IFriend } from "../Friends/Friend/Friend";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { FIND_USER_FRIEND_REQUESTS_BY_ID } from "../../queries/user.query";
 import { v4 as uuid } from "uuid";
+import {
+	ACCEPT_FRIEND_REQUEST,
+	DECLINE_FRIEND_REQUEST,
+} from "../../queries/friendRequest.query";
 
 const FriendRequests = () => {
 	const [id, setId] = useState<string>();
@@ -18,19 +22,50 @@ const FriendRequests = () => {
 		pollInterval: 13500,
 	});
 
+	const [acceptRequest] = useMutation(ACCEPT_FRIEND_REQUEST, {
+		refetchQueries: [
+			{ query: FIND_USER_FRIEND_REQUESTS_BY_ID, variables: { id } },
+		],
+	});
+
+	const [declineRequest] = useMutation(DECLINE_FRIEND_REQUEST, {
+		refetchQueries: [
+			{ query: FIND_USER_FRIEND_REQUESTS_BY_ID, variables: { id } },
+		],
+	});
+
 	if (loading) return <div>Loading... </div>;
+
+	const handleAcceptRequest = (requestId: string) => {
+		acceptRequest({ variables: { id: requestId } });
+	};
+
+	const handleDeclineRequest = (requestId: string) => {
+		declineRequest({ variables: { id: requestId } });
+	};
 
 	return (
 		<div>
 			<h2>My friends Requests</h2>
-			{data.findUserFriendsRequestsById[0].friendRequests.map((friend: IFriend) => (
-				<Friend
-					key={uuid()}
-					firstName={friend.firstName}
-					lastName={friend.lastName}
-					avatar={friend.avatar}
-				/>
-			))}
+			{data.findUserFriendsRequestsById[0].friendRequests.map(
+				(friend: IFriend) => (
+					<>
+						<Friend
+							key={uuid()}
+							id={friend.id}
+							firstName={friend.firstName}
+							lastName={friend.lastName}
+							avatar={friend.avatar}
+						/>
+						<button onClick={() => handleAcceptRequest(friend.id)}>
+							Accept Friend Request
+						</button>
+						<button onClick={() => handleDeclineRequest(friend.id)}>
+							Decline Friend Request
+						</button>
+					</>
+				)
+			)}
 		</div>
 	);
 };
