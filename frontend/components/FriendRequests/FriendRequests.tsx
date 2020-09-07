@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Friend, { IFriend } from "../Friends/Friend/Friend";
 import { useQuery, useMutation } from "@apollo/client";
-import { FIND_USER_FRIEND_REQUESTS_BY_ID } from "../../queries/user.query";
+import {
+	FIND_USER_FRIEND_REQUESTS_BY_ID,
+	FIND_USER_FRIENDS_BY_ID,
+} from "../../queries/user.query";
 import { v4 as uuid } from "uuid";
 import {
 	ACCEPT_FRIEND_REQUEST,
@@ -25,6 +28,7 @@ const FriendRequests = () => {
 	const [acceptRequest] = useMutation(ACCEPT_FRIEND_REQUEST, {
 		refetchQueries: [
 			{ query: FIND_USER_FRIEND_REQUESTS_BY_ID, variables: { id } },
+			{ query: FIND_USER_FRIENDS_BY_ID, variables: { id } },
 		],
 	});
 
@@ -37,16 +41,17 @@ const FriendRequests = () => {
 	if (loading) return <div>Loading... </div>;
 
 	const handleAcceptRequest = (requestId: string) => {
-		acceptRequest({ variables: { id: requestId } });
+		acceptRequest({ variables: { senderId: id, receiverId: requestId } });
 	};
 
 	const handleDeclineRequest = (requestId: string) => {
-		declineRequest({ variables: { id: requestId } });
+		declineRequest({ variables: { senderId: id, receiverId: requestId } });
 	};
 
 	return (
 		<div>
 			<h2>My friends Requests</h2>
+			{console.log(data.findUserFriendsRequestsById[0])}
 			{data.findUserFriendsRequestsById[0].friendRequests.map(
 				(friend: IFriend) => (
 					<>

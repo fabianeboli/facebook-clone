@@ -17,7 +17,7 @@ const postSchema = gql`
 	type Mutation {
 		addPost(content: String!): Post
 		likePost(id: String!, userId: String!): Post
-		unLikePost(id: String!, userId: String!): Post
+		unlikePost(id: String!, userId: String!): Post
 		deletePost(id: String!): Post
 	}
 `;

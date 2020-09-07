@@ -38,50 +38,52 @@ const friendResolver = {
 		},
 		acceptFriendRequest: async (
 			root: any,
-			{ id }: { id: string },
+			{ senderId, receiverId }: { senderId: string; receiverId: string },
 			context: IContext
 		): Promise<void> => {
 			checkIfAuthenticated(context);
 
-			const foundFriendRequest = await FriendRequest.findById(id);
+			//const foundFriendRequest = await FriendRequest.findById(id);
 
-			if (foundFriendRequest) {
-				// remove from friend request
-				await User.findByIdAndUpdate(foundFriendRequest.sender, {
-					$pull: { friendsRequests: foundFriendRequest.receiver },
-				});
-				await User.findByIdAndUpdate(foundFriendRequest.receiver, {
-					$pull: { friendsRequests: foundFriendRequest.sender },
-				});
+			// remove from friend request
+			await User.findByIdAndUpdate(senderId, {
+				$pull: { friendRequests: receiverId },
+			});
+			await User.findByIdAndUpdate(receiverId, {
+				$pull: { friendRequests: senderId },
+			});
 
-				// add to friendList
-				await User.findByIdAndUpdate(foundFriendRequest.sender, {
-					$push: { friends: foundFriendRequest.receiver },
-				});
-				await User.findByIdAndUpdate(foundFriendRequest.receiver, {
-					$push: { friends: foundFriendRequest.sender },
-				});
-			}
-			await FriendRequest.findByIdAndDelete(id);
+			// add to friendList
+			await User.findByIdAndUpdate(senderId, {
+				$push: { friends: receiverId },
+			});
+			await User.findByIdAndUpdate(receiverId, {
+				$push: { friends: senderId },
+			});
+
+			await FriendRequest.findOneAndDelete({
+				sender: senderId,
+				receiver: receiverId,
+			});
 		},
 		declineFriendRequest: async (
 			root: any,
-			{ id }: { id: string },
+			{ senderId, receiverId }: { senderId: string; receiverId: string },
 			context: IContext
 		): Promise<void> => {
 			checkIfAuthenticated(context);
 
-			const foundFriendRequest = await FriendRequest.findById(id);
+			await User.findByIdAndUpdate(senderId, {
+				$pull: { friendRequests: receiverId },
+			});
+			await User.findByIdAndUpdate(receiverId, {
+				$pull: { friendRequests: senderId },
+			});
 
-			if (foundFriendRequest) {
-				await User.findByIdAndUpdate(foundFriendRequest.sender, {
-					$pull: { friendsRequests: foundFriendRequest.receiver },
-				});
-				await User.findByIdAndUpdate(foundFriendRequest.receiver, {
-					$pull: { friendsRequests: foundFriendRequest.sender },
-				});
-			}
-			await FriendRequest.findByIdAndDelete(id);
+			await FriendRequest.findOneAndDelete({
+				sender: senderId,
+				receiver: receiverId,
+			});
 		},
 	},
 };

@@ -8,12 +8,10 @@ import Friends from "../components/Friends/Friends";
 import FriendRequests from "../components/FriendRequests/FriendRequests";
 import SignUp from "../components/SignUpForm/SignUp";
 import NewPost from "../components/NewPost/NewPost";
+import UserProfile from "../components/UserProfile/UserProfile";
 
 export default function Home(): JSX.Element {
-
-	// !TODO Add user profiles
-
-	// !TODO Remove from Friends
+	// !TODO Add messages between friends
 
 	return (
 		<div className={styles.container}>
@@ -21,11 +19,11 @@ export default function Home(): JSX.Element {
 				<title>Create Next App</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
 			<SignIn />
 			<SignUp />
 			<NewPost />
 			<Users />
+			<UserProfile />
 			<FriendRequests />
 			<Friends />
 			<Posts />

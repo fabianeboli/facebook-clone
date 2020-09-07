@@ -12,8 +12,8 @@ const friendRequest = gql`
 	}
 	type Mutation {
 		addFriendRequest(sender: String!, receiver: String!): FriendRequest
-		acceptFriendRequest(id: String!): FriendRequest
-		declineFriendRequest(id: String!): FriendRequest
+		acceptFriendRequest(senderId: String!, receiverId: String!): FriendRequest
+		declineFriendRequest(senderId: String!, receiverId: String!): FriendRequest
 	}
 `;
 

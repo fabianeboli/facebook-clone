@@ -20,7 +20,7 @@ const Comment = (props: IComment): JSX.Element => {
 				</h4>
 			</div>
 			<div>
-				<p>{props.content}</p>
+				<h5>{props.content}</h5>
 			</div>
 			<div>{props.likes}</div>
 			<div>

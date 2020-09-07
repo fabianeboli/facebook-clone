@@ -7,6 +7,7 @@ import {
 	IS_LIKED_BY_USER,
 	FIND_POST_BY_ID,
 	DELETE_POST,
+	ALL_POSTS,
 } from "../../../queries/post.query";
 import NewComment from "../../NewComment/NewComment";
 import { v4 as uuid } from "uuid";
@@ -55,7 +56,9 @@ const Post = (props: IPost): JSX.Element => {
 		},
 	});
 
-	const [removePost] = useMutation(DELETE_POST);
+	const [removePost] = useMutation(DELETE_POST, {
+		refetchQueries: [{ query: ALL_POSTS }],
+	});
 
 	const likeFunction = async () => {
 		data?.isLikedByUser
@@ -104,11 +107,9 @@ const Post = (props: IPost): JSX.Element => {
 				{toggleComment ? <div>Close comment</div> : <div>Add new Comment</div>}
 			</button>
 			{toggleComment && <div>{<NewComment id={props.id} />}</div>}
-			<p>
+			<div>
 				{console.log(props.comments[1]?.content)}
-				{/* {<p>{props.comments.map((comment) => comment.content)}</p>} */}
 				{props.comments.map((comment) => (
-					// <p> {comment.content} </p>
 					<Comment
 						key={uuid()}
 						firstName={comment?.firstName}
@@ -119,7 +120,7 @@ const Post = (props: IPost): JSX.Element => {
 						comments={comment?.comments}
 					/>
 				))}
-			</p>
+			</div>
 		</div>
 	);
 };

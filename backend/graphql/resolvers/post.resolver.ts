@@ -55,7 +55,7 @@ const postResolver = {
 				$push: { likedBy: userId },
 			});
 		},
-		unLikePost: async (root: any, { id, userId }: IPost, context: IContext) => {
+		unlikePost: async (root: any, { id, userId }: IPost, context: IContext) => {
 			checkIfAuthenticated(context);
 			return await Post.findByIdAndUpdate(id, {
 				$inc: { likes: -1 },

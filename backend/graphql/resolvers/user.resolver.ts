@@ -26,7 +26,8 @@ const userResolver = {
 			root: any,
 			{ firstName, lastName }: { firstName: string; lastName: string }
 		) => User.find({ firstName, lastName }),
-		findUserById: (root: any, { id }: { id: string }) => User.findById(id),
+		findUserById: async (root: any, { id }: { id: string }) =>
+			await User.findById(id).populate("friends"),
 		findUserFriendsById: async (root: any, { id }: { id: string }) =>
 			await User.find({ _id: id }).populate("friends"),
 		findUserFriendsRequestsById: async (root: any, { id }: { id: string }) =>

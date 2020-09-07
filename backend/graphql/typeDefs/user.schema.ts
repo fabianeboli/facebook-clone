@@ -22,7 +22,7 @@ const userSchema = gql`
 	type Query {
 		allUsers: [User]!
 		findUser(firstName: String, lastName: String): [User!]
-		findUserById(id: String!): User!
+		findUserById(id: String!): User
 		findUserFriendsById(id: String!): [User]!
 		findUserFriendsRequestsById(id: String!): [User]!
 	}

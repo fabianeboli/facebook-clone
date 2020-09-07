@@ -23,8 +23,8 @@ const Friends = (): JSX.Element => {
 
 	if (loading) return <div>Loading ... </div>;
 
-	const handleRemove = (id: string, friendId: string) => {
-		removeFriend({ variables: { id, friendId } });
+	const handleRemove = async (id: string, friendId: string) => {
+		await removeFriend({ variables: { id, friendId } });
 	};
 
 	return (
@@ -35,7 +35,6 @@ const Friends = (): JSX.Element => {
 				<>
 					<Friend
 						key={uuid()}
-						
 						firstName={friend.firstName}
 						lastName={friend.lastName}
 						avatar={friend.avatar}

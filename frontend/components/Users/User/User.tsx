@@ -1,17 +1,17 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_FRIEND_REQUEST } from "../../../queries/friendRequest.query";
-import {
-	FIND_USER_FRIEND_REQUESTS_BY_ID,
-} from "../../../queries/user.query";
+import { FIND_USER_FRIEND_REQUESTS_BY_ID } from "../../../queries/user.query";
 
 export interface IUser {
+	
 	loggedUserId: string;
 	id: string;
 	firstName: string;
 	lastName: string;
 	email: string;
 	gender: string;
+	dateOfBirth?: string;
 	userFriends: string[];
 	userFriendsRequests: string[];
 }

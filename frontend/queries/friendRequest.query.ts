@@ -9,16 +9,16 @@ export const ADD_FRIEND_REQUEST = gql`
 `;
 
 export const ACCEPT_FRIEND_REQUEST = gql`
-	mutation acceptFriendRequest($id: String!) {
-		acceptFriendRequest(id: $id) {
+	mutation acceptFriendRequest($senderId: String!, $receiverId: String!) {
+		acceptFriendRequest(senderId: $senderId, receiverId: $receiverId) {
 			id
 		}
 	}
 `;
 
 export const DECLINE_FRIEND_REQUEST = gql`
-	mutation declineFriendRequest($id: String!) {
-		declineFriendRequest(id: $id) {
+	mutation declineFriendRequest($senderId: String!, $receiverId: String!) {
+		declineFriendRequest(senderId: $senderId, receiverId: $receiverId) {
 			id
 		}
 	}
