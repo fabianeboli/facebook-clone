@@ -1,8 +1,9 @@
+import { IUser } from "./User.Schema";
 import mongoose, { Schema, Document } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
 export interface IPost extends Document {
-	user?: any;
+	user?: IUser;
 	content: string;
 	date: string;
 	comments?: string[];

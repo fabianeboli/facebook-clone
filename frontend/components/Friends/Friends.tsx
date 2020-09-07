@@ -6,9 +6,11 @@ import {
 	FIND_USER_FRIENDS_BY_ID,
 	REMOVE_FROM_FRIENDS,
 } from "../../queries/user.query";
+import Chat from "../Chat/Chat";
 
 const Friends = (): JSX.Element => {
 	const [id, setId] = useState<string>("");
+	const [toggleChat, setToggleChat] = useState<boolean>(false);
 
 	useEffect(() => {
 		setId(localStorage.getItem("id"));
@@ -39,7 +41,8 @@ const Friends = (): JSX.Element => {
 						lastName={friend.lastName}
 						avatar={friend.avatar}
 					/>
-					<button>Message</button>
+					<button onClick={() => setToggleChat(!toggleChat)}>Message</button>
+					{toggleChat && <Chat key={uuid()} friendsId={friend.id} />}
 					<button onClick={() => handleRemove(id, friend.id)}>
 						Remove from friendlist
 					</button>

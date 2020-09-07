@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-const friendRequest = gql`
+const friendRequestSchema = gql`
 	type FriendRequest {
 		id: ID!
 		sender: String!
@@ -17,4 +17,4 @@ const friendRequest = gql`
 	}
 `;
 
-export default friendRequest;
+export default friendRequestSchema;

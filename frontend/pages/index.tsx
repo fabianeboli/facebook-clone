@@ -11,7 +11,6 @@ import NewPost from "../components/NewPost/NewPost";
 import UserProfile from "../components/UserProfile/UserProfile";
 
 export default function Home(): JSX.Element {
-	// !TODO Add messages between friends
 
 	return (
 		<div className={styles.container}>
