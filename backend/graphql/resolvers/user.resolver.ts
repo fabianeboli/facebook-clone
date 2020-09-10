@@ -1,6 +1,10 @@
+import { createReadStream } from "fs";
+// import { processUpload } from "./../../utils/uploadFile";
+import cloudinary from "cloudinary";
+//import { uploadFile } from "../../utils/uploadFile";
+import { IContext } from "./../../environment.d";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
-import { IContext } from "./../../environment.d";
 import { Gender } from "./../../populate";
 import bcrypt from "bcrypt";
 import { UserInputError } from "apollo-server-express";
@@ -17,6 +21,8 @@ interface IUser {
 	dateOfBirth?: string;
 	password?: string;
 }
+
+const photos: any[] = [];
 
 const userResolver = {
 	Query: {
@@ -73,6 +79,46 @@ const userResolver = {
 				gender,
 				dateOfBirth,
 			});
+		},
+		uploadAvatar: async (
+			_root: any,
+			{ id, file }: { id: string; file: any },
+			context: IContext
+		) => {
+			checkIfAuthenticated(context);
+
+			const { filename, mimetype, encoding, createReadStream } = await file;
+
+			try {
+				console.log("I M GERE");
+
+				const result: any = await new Promise((resolve, reject) => {
+					createReadStream().pipe(
+						cloudinary.v2.uploader.upload_stream((error, result) => {
+							if (error) {
+								reject(error);
+							}
+
+							resolve(result);
+						})
+					);
+				});
+
+				const newPhoto = {
+					filename,
+					mimetype,
+					encoding,
+					path: result.secure_url,
+				};
+
+				await User.findByIdAndUpdate(id, { avatar: result.secure_url });
+				console.log("Result", result.secure_url);
+
+				return newPhoto;
+			} catch (err) {
+				console.log("------EROR WHILE UPLOADING-------", err);
+				return { filename: "", mimetype: "", encoding: "", path: "" };
+			}
 		},
 		deleteUser: async (root: any, { id }: { id: string }) => {
 			return await User.findByIdAndDelete(id);

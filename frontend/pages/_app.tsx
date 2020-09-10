@@ -12,6 +12,8 @@ import { setContext } from "apollo-link-context";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
 //import { WebSocketLink } from "@apollo/link-ws";
+import { createUploadLink } from "apollo-upload-client";
+
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -24,6 +26,10 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink: HttpLink = new HttpLink({
+	uri: "http://localhost:4000/graphql",
+});
+
+const uploadLink = createUploadLink({
 	uri: "http://localhost:4000/graphql",
 });
 
@@ -46,10 +52,9 @@ const httpLink: HttpLink = new HttpLink({
 // 	authLink.concat(httpLink)
 // );
 
-
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: authLink.concat(httpLink),
+	link: authLink.concat(uploadLink),
 	// link: splitLink,
 });
 

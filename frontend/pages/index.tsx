@@ -25,7 +25,7 @@ export default function Home(): JSX.Element {
 			<UserProfile />
 			<FriendRequests />
 			<Friends />
-			<Posts />
+			{/* <Posts /> */}
 
 			<footer className={styles.footer}>
 				<a

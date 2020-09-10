@@ -87,6 +87,17 @@ export const ADD_USER = gql`
 	}
 `;
 
+export const UPLOAD_AVATAR = gql`
+	mutation uploadAvatar($id: String!, $file: Upload!) {
+		uploadAvatar(id: $id, file: $file) {
+			filename
+			mimetype
+			encoding
+		}
+		
+	}
+`;
+
 export const SIGN_IN = gql`
 	mutation login($email: String!, $password: String!) {
 		login(email: $email, password: $password) {

@@ -1,6 +1,13 @@
 import { gql } from "apollo-server-express";
 
 const userSchema = gql`
+	type File {
+		filename: String!
+		mimetype: String!
+		encoding: String!
+		url: String!
+	}
+
 	type Token {
 		value: String!
 		id: String!
@@ -22,7 +29,7 @@ const userSchema = gql`
 	type Query {
 		allUsers: [User]!
 		findUser(firstName: String, lastName: String): [User!]
-		findUserById(id: String!): User
+		findUserById(id: String!): User!
 		findUserFriendsById(id: String!): [User]!
 		findUserFriendsRequestsById(id: String!): [User]!
 	}
@@ -31,7 +38,7 @@ const userSchema = gql`
 			firstName: String!
 			lastName: String!
 			email: String!
-			avatar: String
+
 			gender: String!
 			password: String!
 			dateOfBirth: String!
@@ -40,12 +47,13 @@ const userSchema = gql`
 			firstName: String
 			lastName: String
 			email: String!
-			avatar: String
+
 			gender: String
 			password: String
 			dateOfBirth: String
 		): User!
-		deleteUser(id: String!): User
+		uploadAvatar(id: String!, file: Upload!): File
+		deleteUser(id: String!): Boolean
 		removeFromFriends(id: String!, friendId: String!): User
 		login(email: String!, password: String!): Token!
 	}

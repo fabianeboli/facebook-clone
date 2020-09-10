@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
+import path from "path";
 
 export interface IUser extends Document {
 	firstName: string;
@@ -28,12 +29,13 @@ const UserSchema = new Schema({
 	},
 	gender: { type: String, enum: ["Male", "Female", "Other/Prefer not to say"] },
 	dateOfBirth: { type: String, required: true },
-	avatar: { type: String },
+	avatar: {
+		type: String,
+		// upload to cloud ./images/defaultAvatar.svg"),
+	},
 	hashedPassword: { type: String, required: true },
 	friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
-	friendRequests: [
-		{ type: Schema.Types.ObjectId, ref: "User", default: [] },
-	],
+	friendRequests: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
 	posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
