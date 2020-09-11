@@ -6,7 +6,7 @@ import moment from "moment";
 
 const chatResolver = {
 	Query: {
-		readChat: async (root: any, { userIds }: IChat, context: IContext) => {
+		readChat: async (_root: any, { userIds }: IChat, context: IContext) => {
 			checkIfAuthenticated(context);
 			const chat = await Chat.findOne({
 				userIds: { $in: [...userIds] },
@@ -19,18 +19,18 @@ const chatResolver = {
 		},
 	},
 	Mutation: {
-		createChat: async (root: any, { userIds }: IChat, context: IContext) => {
+		createChat: async (_root: any, { userIds }: IChat, context: IContext) => {
 			checkIfAuthenticated(context);
 			return await new Chat({ userIds }).save();
 		},
 		sendMessage: async (
-			root: any,
+			_root: any,
 			{ userIds, author, message }: IChat & IMessage,
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
 			return await Chat.findOneAndUpdate(
-				{ userIds: { $in: [...userIds] }},
+				{ userIds: { $in: [...userIds] } },
 				{
 					$push: { messages: { author, message } },
 				}

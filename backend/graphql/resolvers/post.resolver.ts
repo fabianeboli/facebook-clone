@@ -11,7 +11,7 @@ const postResolver = {
 		allPosts: async (): Promise<IPost[]> =>
 			await Post.find({}).populate("user comments likedBy"),
 		findPostById: async (
-			root: any,
+			_root: any,
 			{ id }: { id: string },
 			context: IContext
 		): Promise<IPost | null> => {
@@ -19,7 +19,7 @@ const postResolver = {
 			return await Post.findById(id).populate("user comments");
 		},
 		isLikedByUser: async (
-			root: any,
+			_root: any,
 			{ id, userId }: IPost,
 			context: IContext
 		) => {
@@ -29,7 +29,7 @@ const postResolver = {
 	},
 	Mutation: {
 		addPost: async (
-			root: any,
+			_root: any,
 			{ content }: IPost,
 			context: IContext
 		): Promise<IPost> => {
@@ -48,14 +48,14 @@ const postResolver = {
 				});
 			}
 		},
-		likePost: async (root: any, { id, userId }: IPost, context: IContext) => {
+		likePost: async (_root: any, { id, userId }: IPost, context: IContext) => {
 			checkIfAuthenticated(context);
 			return await Post.findByIdAndUpdate(id, {
 				$inc: { likes: 1 },
 				$push: { likedBy: userId },
 			});
 		},
-		unlikePost: async (root: any, { id, userId }: IPost, context: IContext) => {
+		unlikePost: async (_root: any, { id, userId }: IPost, context: IContext) => {
 			checkIfAuthenticated(context);
 			return await Post.findByIdAndUpdate(id, {
 				$inc: { likes: -1 },
@@ -64,7 +64,7 @@ const postResolver = {
 		},
 
 		deletePost: async (
-			root: any,
+			_root: any,
 			{ id }: { id: string },
 			context: IContext
 		): Promise<IPost | null> => {

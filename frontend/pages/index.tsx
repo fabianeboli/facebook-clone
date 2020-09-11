@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Users from "../components/Users/Users";
 import SignIn from "../components/SignIn/SignIn";
 import Posts from "../components/Posts/Posts";
@@ -11,6 +11,11 @@ import NewPost from "../components/NewPost/NewPost";
 import UserProfile from "../components/UserProfile/UserProfile";
 
 export default function Home(): JSX.Element {
+	const [id, setId] = useState<string>("");
+
+	useEffect(() => {
+		setId(localStorage.getItem("id"));
+	}, []);
 
 	return (
 		<div className={styles.container}>
@@ -22,10 +27,10 @@ export default function Home(): JSX.Element {
 			<SignUp />
 			<NewPost />
 			<Users />
-			<UserProfile />
+			<UserProfile id={id} />
 			<FriendRequests />
 			<Friends />
-			{/* <Posts /> */}
+			<Posts />
 
 			<footer className={styles.footer}>
 				<a

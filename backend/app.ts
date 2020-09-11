@@ -1,18 +1,15 @@
 import cloudinary from "cloudinary";
-// import cloudinary from "cloudinary";
-//import { populate } from "./populate";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
-import mongoose, { connection } from "mongoose";
+import mongoose from "mongoose";
 import cors from "cors";
-import { ApolloServer, PubSub } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import moment from "moment";
 import jwt from "jsonwebtoken";
 import User from "./models/User.Schema";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
-// import { graphqlUploadExpress } from "graphql-upload";
 
 dotenv.config();
 moment.locale("en-gb");
@@ -23,7 +20,6 @@ cloudinary.v2.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const PORT: number = Number(process.env.PORT) ?? 3001;
 const MONGO_URI: string = process.env.MONGO_URI ?? "";
 
 const app = express();
@@ -32,10 +28,6 @@ mongoose.connect(MONGO_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
-
-const uri: any = process.env.MONGO_URI;
-
-// app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
 
 const server = new ApolloServer({
 	typeDefs,

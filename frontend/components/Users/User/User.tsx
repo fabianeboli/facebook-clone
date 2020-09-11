@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_FRIEND_REQUEST } from "../../../queries/friendRequest.query";
 import { FIND_USER_FRIEND_REQUESTS_BY_ID } from "../../../queries/user.query";
+import UserProfile from "../../UserProfile/UserProfile";
 
 export interface IUser {
-	
 	loggedUserId: string;
 	id: string;
 	firstName: string;
@@ -17,6 +17,8 @@ export interface IUser {
 }
 
 const User = (props: IUser): JSX.Element => {
+	const [userProfile, setUserProfile] = useState<boolean>(false);
+
 	const [addFriendRequest] = useMutation(ADD_FRIEND_REQUEST, {
 		refetchQueries: [
 			{ query: FIND_USER_FRIEND_REQUESTS_BY_ID, variables: { id: props.id } },
@@ -47,6 +49,11 @@ const User = (props: IUser): JSX.Element => {
 	return (
 		<div>
 			{props.firstName} {props.lastName} {props.email} {props.gender}{" "}
+			<button onClick={() => setUserProfile(!userProfile)}>
+				{" "}
+				{userProfile ? <p>Hide</p> : <p>Show</p>} profile
+			</button>
+			<div>{userProfile && <UserProfile id={props.id} />}</div>
 			{checkConditions(
 				props.id,
 				props.loggedUserId,

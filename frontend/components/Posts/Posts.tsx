@@ -1,11 +1,17 @@
 import React from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post, { IPost } from "./Post/Post";
-import { ALL_POSTS, DELETE_POST } from "../../queries/post.query";
+import { ALL_POSTS } from "../../queries/post.query";
 
 const Posts = (): JSX.Element => {
-	const result = useQuery(ALL_POSTS);
+	const result = useQuery(ALL_POSTS, {
+		variables: {
+			offset: 0,
+			limit: 15,
+		},
+		fetchPolicy: "cache-and-network",
+	});
 
 	if (result.loading) return <div>Loading...</div>;
 
@@ -13,7 +19,7 @@ const Posts = (): JSX.Element => {
 		<div>
 			<h3>Posts</h3>
 			{result.data.allPosts.map((post: IPost) => (
-				<Post 
+				<Post
 					key={uuid()}
 					id={post.id}
 					user={post?.user}

@@ -12,12 +12,12 @@ interface IContact {
 
 const friendResolver = {
 	Query: {
-		allFriendsRequests: async (root: any): Promise<IFriendRequest[]> =>
+		allFriendsRequests: async (_root: any): Promise<IFriendRequest[]> =>
 			await FriendRequest.find({}),
 	},
 	Mutation: {
 		addFriendRequest: async (
-			root: any,
+			_root: any,
 			{ sender, receiver }: IContact,
 			context: IContext
 		): Promise<void> => {
@@ -37,13 +37,11 @@ const friendResolver = {
 			});
 		},
 		acceptFriendRequest: async (
-			root: any,
+			_root: any,
 			{ senderId, receiverId }: { senderId: string; receiverId: string },
 			context: IContext
 		): Promise<void> => {
 			checkIfAuthenticated(context);
-
-			//const foundFriendRequest = await FriendRequest.findById(id);
 
 			// remove from friend request
 			await User.findByIdAndUpdate(senderId, {
@@ -67,7 +65,7 @@ const friendResolver = {
 			});
 		},
 		declineFriendRequest: async (
-			root: any,
+			_root: any,
 			{ senderId, receiverId }: { senderId: string; receiverId: string },
 			context: IContext
 		): Promise<void> => {

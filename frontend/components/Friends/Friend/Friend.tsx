@@ -10,7 +10,7 @@ export interface IFriend {
 const Friend = (props: IFriend): JSX.Element => {
 	return (
 		<div>
-			{props.avatar}
+			<img src={props.avatar} />
 			<p>
 				{" "}
 				{props.firstName} {props.lastName}{" "}

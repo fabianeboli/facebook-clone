@@ -20,7 +20,7 @@ const commentResolver = {
 	},
 	Mutation: {
 		addComment: async (
-			root: any,
+			_root: any,
 			{ user, post, content }: IMessage,
 			context: IContext
 		): Promise<IComment> => {
@@ -39,7 +39,7 @@ const commentResolver = {
 			return await newComment.save();
 		},
 		editComment: async (
-			root: any,
+			_root: any,
 			{ id, content }: IMessage,
 			context: IContext
 		): Promise<IComment | null> => {
@@ -51,7 +51,7 @@ const commentResolver = {
 			});
 		},
 		likeComment: async (
-			root: any,
+			_root: any,
 			{ id }: { id: string },
 			context: IContext
 		): Promise<IComment | null> => {
@@ -60,7 +60,7 @@ const commentResolver = {
 			return await Comment.findByIdAndUpdate(id, { $inc: { likes: 1 } });
 		},
 		unlikeComment: async (
-			root: any,
+			_root: any,
 			{ id }: { id: string },
 			context: IContext
 		): Promise<IComment | null> => {
@@ -69,7 +69,7 @@ const commentResolver = {
 			return await Comment.findByIdAndUpdate(id, { $inc: { likes: -1 } });
 		},
 		removeComment: async (
-			root: any,
+			_root: any,
 			{ id, post }: IMessage,
 			context: IContext
 		): Promise<IComment | null> => {

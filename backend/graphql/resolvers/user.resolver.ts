@@ -1,9 +1,6 @@
-import { createReadStream } from "fs";
-// import { processUpload } from "./../../utils/uploadFile";
-import cloudinary from "cloudinary";
-//import { uploadFile } from "../../utils/uploadFile";
-import { IContext } from "./../../environment.d";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import cloudinary from "cloudinary";
+import { IContext } from "./../../environment.d";
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { Gender } from "./../../populate";
 import bcrypt from "bcrypt";
@@ -22,14 +19,12 @@ interface IUser {
 	password?: string;
 }
 
-const photos: any[] = [];
-
 const userResolver = {
 	Query: {
 		allUsers: async () =>
 			await User.find({}).populate("friendRequests friends"),
 		findUser: (
-			root: any,
+			_root: any,
 			{ firstName, lastName }: { firstName: string; lastName: string }
 		) => User.find({ firstName, lastName }),
 		findUserById: async (root: any, { id }: { id: string }) =>
@@ -41,7 +36,7 @@ const userResolver = {
 	},
 	Mutation: {
 		addUser: async (
-			root: any,
+			_root: any,
 			{
 				firstName,
 				lastName,
@@ -65,7 +60,7 @@ const userResolver = {
 			}).save();
 		},
 		editUser: async (
-			root: any,
+			_root: any,
 			{ id, firstName, lastName, avatar, email, gender, dateOfBirth }: IUser,
 			context: IContext
 		) => {
@@ -87,50 +82,35 @@ const userResolver = {
 		) => {
 			checkIfAuthenticated(context);
 
-			const { filename, mimetype, encoding, createReadStream } = await file;
+			const { createReadStream } = await file;
 
 			try {
-				console.log("I M GERE");
-
 				const result: any = await new Promise((resolve, reject) => {
 					createReadStream().pipe(
 						cloudinary.v2.uploader.upload_stream((error, result) => {
 							if (error) {
 								reject(error);
 							}
-
 							resolve(result);
 						})
 					);
 				});
-
-				const newPhoto = {
-					filename,
-					mimetype,
-					encoding,
-					path: result.secure_url,
-				};
-
-				await User.findByIdAndUpdate(id, { avatar: result.secure_url });
-				console.log("Result", result.secure_url);
-
-				return newPhoto;
+				return await User.findByIdAndUpdate(id, { avatar: result.secure_url });
 			} catch (err) {
-				console.log("------EROR WHILE UPLOADING-------", err);
-				return { filename: "", mimetype: "", encoding: "", path: "" };
+				throw new Error(err);
 			}
 		},
 		deleteUser: async (root: any, { id }: { id: string }) => {
 			return await User.findByIdAndDelete(id);
 		},
 		removeFromFriends: async (
-			root: any,
+			_root: any,
 			{ id, friendId }: { id: string; friendId: string }
 		) => {
 			return await User.findByIdAndUpdate(id, { $pull: { friends: friendId } });
 		},
 		login: async (
-			root: any,
+			_root: any,
 			{ email, password }: { email: string; password: string }
 		) => {
 			const user = await User.findOne({ email });
