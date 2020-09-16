@@ -13,7 +13,8 @@ import { Provider } from "react-redux";
 import { useStore } from "../store";
 //import { WebSocketLink } from "@apollo/link-ws";
 import { createUploadLink } from "apollo-upload-client";
-
+import Head from "next/head";
+import Navbar from "../components/Navbar/Navbar";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -54,6 +55,8 @@ const uploadLink = createUploadLink({
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	link: authLink.concat(uploadLink),
 	// link: splitLink,
 });
@@ -65,7 +68,13 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
 	return (
 		<Provider store={store}>
 			<ApolloProvider client={client}>
-				<Component {...pageProps} />
+				<Head>
+					<title>Facebook clone </title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
+				<Navbar>
+					<Component {...pageProps} />
+				</Navbar>
 			</ApolloProvider>
 		</Provider>
 	);

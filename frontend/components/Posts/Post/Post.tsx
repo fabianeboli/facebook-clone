@@ -108,7 +108,6 @@ const Post = (props: IPost): JSX.Element => {
 			</button>
 			{toggleComment && <div>{<NewComment id={props.id} />}</div>}
 			<div>
-				{console.log(props.comments[1]?.content)}
 				{props.comments.map((comment) => (
 					<Comment
 						key={uuid()}

@@ -25,6 +25,7 @@ const userSchema = gql`
 		avatar: String
 		friends: [User]!
 		friendRequests: [User]!
+		posts: [Post]
 	}
 	type Query {
 		allUsers: [User]!

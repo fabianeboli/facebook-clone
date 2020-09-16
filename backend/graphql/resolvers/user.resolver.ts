@@ -22,13 +22,13 @@ interface IUser {
 const userResolver = {
 	Query: {
 		allUsers: async () =>
-			await User.find({}).populate("friendRequests friends"),
+			await User.find({}).populate("friendRequests friends posts"),
 		findUser: (
 			_root: any,
 			{ firstName, lastName }: { firstName: string; lastName: string }
 		) => User.find({ firstName, lastName }),
 		findUserById: async (root: any, { id }: { id: string }) =>
-			await User.findById(id).populate("friends"),
+			await User.findById(id).populate("friendRequests friends posts"),
 		findUserFriendsById: async (root: any, { id }: { id: string }) =>
 			await User.find({ _id: id }).populate("friends"),
 		findUserFriendsRequestsById: async (root: any, { id }: { id: string }) =>

@@ -1,3 +1,4 @@
+import { populate } from "./../../populate";
 import moment from "moment";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
@@ -5,11 +6,12 @@ import { IContext } from "./../../environment.d";
 import Post, { IPost } from "../../models/Post.Schema";
 import { UserInputError } from "apollo-server-express";
 import User from "../../models/User.Schema";
+import { query } from "express";
 
 const postResolver = {
 	Query: {
 		allPosts: async (): Promise<IPost[]> =>
-			await Post.find({}).populate("user comments likedBy"),
+			await Post.find({}).populate("user comments likedBy").sort({ date: 1 }),
 		findPostById: async (
 			_root: any,
 			{ id }: { id: string },
@@ -32,7 +34,7 @@ const postResolver = {
 			_root: any,
 			{ content }: IPost,
 			context: IContext
-		): Promise<IPost> => {
+		) => {
 			checkIfAuthenticated(context);
 			const foundUser = await User.findById(context.currentUser._id);
 			const post = new Post({
@@ -41,6 +43,7 @@ const postResolver = {
 				date: moment().format("LLL"),
 			}).populate("user");
 			try {
+				await foundUser?.update({ $push: { posts: post } });
 				return await post.save();
 			} catch (error) {
 				throw new UserInputError(error.message, {
@@ -55,7 +58,11 @@ const postResolver = {
 				$push: { likedBy: userId },
 			});
 		},
-		unlikePost: async (_root: any, { id, userId }: IPost, context: IContext) => {
+		unlikePost: async (
+			_root: any,
+			{ id, userId }: IPost,
+			context: IContext
+		) => {
 			checkIfAuthenticated(context);
 			return await Post.findByIdAndUpdate(id, {
 				$inc: { likes: -1 },

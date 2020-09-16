@@ -14,16 +14,18 @@ export const ALL_USERS = gql`
 export const FIND_USER_BY_ID = gql`
 	query findUserById($id: String!) {
 		findUserById(id: $id) {
+			id
 			firstName
 			lastName
 			email
 			gender
-			avatar
 			dateOfBirth
 			friends {
 				firstName
 				lastName
-				avatar
+			}
+			posts {
+				content
 			}
 		}
 	}
@@ -94,7 +96,6 @@ export const UPLOAD_AVATAR = gql`
 			mimetype
 			encoding
 		}
-		
 	}
 `;
 
