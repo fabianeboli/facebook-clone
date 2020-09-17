@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../queries/user.query";
+import * as S from "./SignIn.style.ts";
 
 const SignIn = (): JSX.Element => {
 	const [email, setEmail] = useState<string>("test@test.com");
@@ -46,25 +47,28 @@ const SignIn = (): JSX.Element => {
 	};
 
 	const SignInForm = (
-		<div>
+		<S.container>
+			<S.header>Sign In</S.header>
 			<form>
-				<input
+				<S.input
 					type="text"
 					name="email"
+					placeholder="email"
 					value={email}
 					onChange={({ target }) => setEmail(target.value)}
 				/>
-				<input
+				<S.input
 					type="password"
 					name="password"
+					placeholder="password"
 					value={password}
 					onChange={({ target }) => setPassword(target.value)}
 				/>
 			</form>
-			<button onClick={handleForm} type="submit">
+			<S.submit onClick={handleForm} type="submit">
 				Submit
-			</button>
-		</div>
+			</S.submit>
+		</S.container>
 	);
 
 	if (result.loading) return <div>Loading...</div>;

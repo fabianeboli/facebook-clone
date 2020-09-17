@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.css";
 import React, { useEffect, useState } from "react";
 import SignIn from "../components/SignIn/SignIn";
-import SignUp from "../components/SignUpForm/SignUp";
+import SignUp from "../components/SignUp/SignUp";
 import { useRouter } from "next/router";
 
 export default function Home(): JSX.Element {
@@ -10,7 +10,6 @@ export default function Home(): JSX.Element {
 
 	useEffect(() => {
 		setId(localStorage.getItem("id"));
-		router.push("main");
 	}, []);
 
 	const redirectIfSigned = () => id && router.push("main");

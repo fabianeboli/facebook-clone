@@ -15,6 +15,8 @@ import { useStore } from "../store";
 import { createUploadLink } from "apollo-upload-client";
 import Head from "next/head";
 import Navbar from "../components/Navbar/Navbar";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, theme } from "../theme.style";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -66,17 +68,20 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
 	const store = useStore(pageProps.initialReduxStore);
 
 	return (
-		<Provider store={store}>
-			<ApolloProvider client={client}>
-				<Head>
-					<title>Facebook clone </title>
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
-				<Navbar>
-					<Component {...pageProps} />
-				</Navbar>
-			</ApolloProvider>
-		</Provider>
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
+			<Provider store={store}>
+				<ApolloProvider client={client}>
+					<Head>
+						<title>Facebook clone </title>
+						<link rel="icon" href="/favicon.ico" />
+					</Head>
+					<Navbar>
+						<Component {...pageProps} />
+					</Navbar>
+				</ApolloProvider>
+			</Provider>
+		</ThemeProvider>
 	);
 };
 

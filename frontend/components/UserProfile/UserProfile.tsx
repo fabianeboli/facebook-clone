@@ -44,7 +44,7 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 			<h4>Date of Birth: {user.dateOfBirth}</h4>
 
 			{localStorage.getItem("id") === id && (
-				<input
+				<S.input
 					type="file"
 					required
 					onChange={(event) => handleSubmitFile(event)}

@@ -46,7 +46,7 @@ const Chat = ({ friendsId }: IChat): JSX.Element => {
 					sendDate={message.sendDate}
 				/>
 			))}
-			<input
+			<S.input
 				type="text"
 				value={message}
 				onChange={({ target }) => setMessage(target.value)}
