@@ -1,4 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { Router, useRouter } from "next/router";
+import * as S from "./Navbar.style";
 import Link from "next/link";
 
 interface INavbar {
@@ -7,36 +9,36 @@ interface INavbar {
 
 const Navbar = ({ children }: INavbar): JSX.Element => {
 	const [id, setId] = useState<string>("");
+	const router = useRouter();
 
 	useEffect(() => {
 		setId(localStorage.getItem("id"));
 	}, []);
 
-	const handleSignOut = () => {
+	const handleSignOut = async () => {
+		await router.push("/");
 		localStorage.clear();
 		location.reload();
 	};
 
 	return (
-		<nav>
-			{id && (
-				<>
-					<div>
+		<>
+			<S.container>
+				{id && (
+					<>
 						<Link href="/main">Main page</Link>
-					</div>
-					<div>
+
 						<Link href="/userprofile">your profile</Link>
-					</div>
-					<div>
+
 						<Link href="/users"> Users</Link>
-					</div>
-					<button onClick={handleSignOut}>
-						<Link href="/">Sign Out</Link>
-					</button>
-				</>
-			)}
+						<button onClick={handleSignOut}>
+							<Link href="/">Sign Out</Link>
+						</button>
+					</>
+				)}
+			</S.container>
 			<div>{children}</div>
-		</nav>
+		</>
 	);
 };
 

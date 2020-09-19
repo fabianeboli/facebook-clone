@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const outerContainer = styled.div`
 	border: 2px solid ${(p) => p.theme.contrastPrimary};
 	border-radius: 4px;
-	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -15,6 +14,8 @@ export const outerContainer = styled.div`
 
 export const header = styled.h1`
 	text-transform: uppercase;
+	font-size: calc(1.2em + 0.8vw);
+	margin: 0;
 `;
 
 export const inputGroup = styled.div`
@@ -31,7 +32,6 @@ export const submit = styled.button`
 	color: ${(p) => p.theme.darkBackground};
 	font-size: 2em;
 	font-weight: bold;
-	border-radius: 4px;
 	cursor: pointer;
 
 	&:hover {

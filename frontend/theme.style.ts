@@ -55,11 +55,12 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 	html, body {
-		margin: 0 auto; 
-		padding: 0;
+	
 		background-color: ${(p) => p.theme.background};
 		color: ${(p) => p.theme.foregroundPrimary};
 		font-family: 'Noto sans', sans-serif;
+		background-attachment: fixed;
+		scroll-behavior: smooth;
 	}
 
 

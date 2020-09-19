@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import SignIn from "../components/SignIn/SignIn";
 import SignUp from "../components/SignUp/SignUp";
 import { useRouter } from "next/router";
+import * as S from "./styles/index.style";
 
 export default function Home(): JSX.Element {
 	const [id, setId] = useState<string>("");
@@ -10,15 +11,24 @@ export default function Home(): JSX.Element {
 
 	useEffect(() => {
 		setId(localStorage.getItem("id"));
-	}, []);
+		id && router.push('/main');
+	}, [id]);
 
-	const redirectIfSigned = () => id && router.push("main");
 
 	return (
-		<div className={styles.container}>
-			{() => redirectIfSigned()}
-			<SignIn />
-			<SignUp />
-		</div>
+		<>
+			<S.rectangle src="/images/rectangle.svg" />
+			<S.header>Facebook Clone</S.header>
+			<S.container>
+				<S.SignIn>
+					<SignIn />
+				</S.SignIn>
+				<S.signUp>
+					<SignUp />
+				</S.signUp>
+			</S.container>
+			<S.girlTablet src="/images/girlTablet.svg" />
+			<S.girlLamp src="/images/girlLamp.svg" />
+		</>
 	);
 }
