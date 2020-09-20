@@ -11,7 +11,12 @@ import { query } from "express";
 const postResolver = {
 	Query: {
 		allPosts: async (): Promise<IPost[]> =>
-			await Post.find({}).populate("user comments likedBy").sort({ date: 1 }),
+			await Post.find({})
+				.populate({
+					path: "user comments likedBy",
+					populate: { path: "user", model: "User" },
+				})
+				.sort({ date: 1 }),
 		findPostById: async (
 			_root: any,
 			{ id }: { id: string },
@@ -30,11 +35,7 @@ const postResolver = {
 		},
 	},
 	Mutation: {
-		addPost: async (
-			_root: any,
-			{ content }: IPost,
-			context: IContext
-		) => {
+		addPost: async (_root: any, { content }: IPost, context: IContext) => {
 			checkIfAuthenticated(context);
 			const foundUser = await User.findById(context.currentUser._id);
 			const post = new Post({

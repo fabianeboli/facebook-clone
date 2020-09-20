@@ -16,6 +16,7 @@ interface IMessage {
 const commentResolver = {
 	Query: {
 		allComments: async (): Promise<IComment[]> =>
+		
 			await Comment.find({}).populate("user"),
 	},
 	Mutation: {
@@ -26,12 +27,12 @@ const commentResolver = {
 		): Promise<IComment> => {
 			checkIfAuthenticated(context);
 
-			const newComment = await new Comment({
+			const newComment = new Comment({
 				user,
 				post,
 				content,
 				date: moment().format("LLL"),
-			}).populate("user");
+			});
 			await Post.findByIdAndUpdate(post, {
 				$push: { comments: newComment._id },
 			});
