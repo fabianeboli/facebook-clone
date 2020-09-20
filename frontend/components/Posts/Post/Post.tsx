@@ -11,6 +11,7 @@ import {
 } from "../../../queries/post.query";
 import NewComment from "../../NewComment/NewComment";
 import { v4 as uuid } from "uuid";
+import * as S from "./Post.style";
 
 export interface IPost {
 	id: string;
@@ -18,6 +19,7 @@ export interface IPost {
 		id: string;
 		firstName: string;
 		lastName: string;
+		avatar?: string;
 	};
 	date: string;
 	content: string;
@@ -77,42 +79,64 @@ const Post = (props: IPost): JSX.Element => {
 	};
 
 	const deleteButton: JSX.Element = (
-		<button onClick={deletePost}>DELETE POST</button>
+		<S.deleteButton onClick={deletePost}>
+			<S.deletePost size={24} />
+		</S.deleteButton>
 	);
 
 	return (
-		<div>
-			<div>
-				<h4>
-					{props?.user?.firstName} {props?.user?.lastName}{" "}
-					<span>{props.date}</span>
-					<div>
-						{props?.user?.id === localStorage.getItem("id") && deleteButton}
-					</div>
-				</h4>
-			</div>
-			<div>
-				<p>{props.content}</p>
-			</div>
-			<div>{props.likes}</div>
-			<button
-				disabled={data?.isLikedByUser ? unlikeLoading : likeLoading}
-				onClick={() => likeFunction()}
-			>
-				{" "}
-				{data?.isLikedByUser ? <div> Unlike </div> : <div> Like</div>}
-			</button>
+		<S.container>
+			<S.userContainer>
+				<S.avatar src={props.user?.avatar ?? "/images/user-solid.svg"} />
+				<S.userDetails>
+					<S.username>
+						{props?.user?.firstName} {props?.user?.lastName}{" "}
+					</S.username>
+					<S.date>
+						<span>{props.date}</span>
+					</S.date>
+				</S.userDetails>
 
-			<button onClick={() => setToggleComment(!toggleComment)}>
-				{toggleComment ? <div>Close comment</div> : <div>Add new Comment</div>}
-			</button>
-			{toggleComment && <div>{<NewComment id={props.id} />}</div>}
+				<S.statusContainer>
+					{props?.user?.id === localStorage.getItem("id") && deleteButton}
+					<div>
+						<S.like size={24} /> {props.likes}
+					</div>
+					<div>
+						<S.comments size={24} /> {props.comments.length}
+					</div>
+				</S.statusContainer>
+			</S.userContainer>
+
+			<S.content>{props.content}</S.content>
+
+			<S.optionsContainer>
+				<S.optionButton
+					disabled={data?.isLikedByUser ? unlikeLoading : likeLoading}
+					onClick={() => likeFunction()}
+				>
+					{" "}
+					<S.optionLike size={24} />
+					{data?.isLikedByUser ? <div> Unlike </div> : <div> Like</div>}
+				</S.optionButton>
+
+				<S.optionButton onClick={() => setToggleComment(!toggleComment)}>
+					<S.commentLike size={24} />
+					{toggleComment ? (
+						<div>Close comment</div>
+					) : (
+						<div>Add new Comment</div>
+					)}
+				</S.optionButton>
+			</S.optionsContainer>
+
 			<div>
+				{toggleComment && <div>{<NewComment id={props.id} />}</div>}
 				{props.comments.map((comment) => (
 					<Comment
 						key={uuid()}
-						firstName={comment?.firstName}
-						lastName={comment?.lastName}
+						firstName={comment.firstName}
+						lastName={comment.lastName}
 						content={comment?.content}
 						date={comment?.date}
 						likes={comment?.likes}
@@ -120,7 +144,7 @@ const Post = (props: IPost): JSX.Element => {
 					/>
 				))}
 			</div>
-		</div>
+		</S.container>
 	);
 };
 

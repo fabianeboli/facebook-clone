@@ -18,7 +18,6 @@ export default function Home(): JSX.Element {
 	return (
 		<>
 			<S.rectangle src="/images/rectangle.svg" />
-			<S.header>Facebook Clone</S.header>
 			<S.container>
 				<S.SignIn>
 					<SignIn />

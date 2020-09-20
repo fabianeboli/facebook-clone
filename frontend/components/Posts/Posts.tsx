@@ -17,7 +17,6 @@ const Posts = (): JSX.Element => {
 
 	return (
 		<div>
-			<h3>Posts</h3>
 			{result.data.allPosts.map((post: IPost) => (
 				<Post
 					key={uuid()}

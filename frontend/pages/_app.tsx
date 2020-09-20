@@ -17,6 +17,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "../theme.style";
+import * as S from "./styles/_app.style";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -72,6 +73,8 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
 			<GlobalStyle />
 			<Provider store={store}>
 				<ApolloProvider client={client}>
+					<S.header>Facebook Clone</S.header>
+
 					<Head>
 						<title>Facebook clone </title>
 						<link rel="icon" href="/favicon.ico" />

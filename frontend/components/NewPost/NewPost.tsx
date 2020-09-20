@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_POST, ALL_POSTS } from "../../queries/post.query";
 
@@ -16,13 +16,14 @@ const NewPost = (): JSX.Element => {
 
 	return (
 		<div>
-			<h3>Write new post</h3>
+		
 			<form>
 				<textarea
 					rows={7}
 					cols={30}
 					value={content}
 					onChange={({ target }) => setContent(target.value)}
+					placeholder="Write new Post..."
 				/>
 				<button type="submit" onClick={submit}>
 					Submit

@@ -24,6 +24,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
+    "styled-icons": "^10.21.0",
     "subscriptions-transport-ws": "^0.9.18",
     "uuid": "^8.3.0"
   },

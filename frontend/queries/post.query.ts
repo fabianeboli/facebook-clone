@@ -8,6 +8,7 @@ export const ALL_POSTS = gql`
 				id
 				firstName
 				lastName
+				avatar
 			}
 			date
 			content
@@ -15,7 +16,7 @@ export const ALL_POSTS = gql`
 			comments {
 				post
 				# user {
-				# id	
+				# id
 				# }
 				date
 				content
@@ -32,10 +33,19 @@ export const FIND_POST_BY_ID = gql`
 				id
 				firstName
 				lastName
+				avatar
 			}
 			date
 			content
 			likes
+			comments {
+				post
+				# user {
+				# id
+				# }
+				date
+				content
+			}
 		}
 	}
 `;

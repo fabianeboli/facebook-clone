@@ -23,6 +23,7 @@ const Navbar = ({ children }: INavbar): JSX.Element => {
 
 	return (
 		<>
+		
 			<S.container>
 				{id && (
 					<>

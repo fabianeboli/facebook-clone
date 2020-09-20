@@ -1,28 +1,33 @@
 import React from "react";
-
+import * as S from "./Comment.style";
+import * as Sp from "../Posts/Post/Post.style";
 export interface IComment {
+	user?: {
+		firstName: string;
+		lastName: string;
+	};
 	firstName: string;
 	lastName: string;
 	date: string;
 	content: string;
 	likes: number;
-	comments: IComment[];
+	comments?: IComment[];
 }
 
 const Comment = (props: IComment): JSX.Element => {
 	return (
-		<div>
-			START-----------------
+		<S.container>
 			<div>
-			
-				<h4>
-					{props.firstName} {props.lastName} <span>{props.date}</span>
-				</h4>
+				<S.userDetails>
+					<S.username>
+						{props.firstName} {props.lastName}{" "}
+					</S.username>
+					<S.date>{props.date}</S.date>
+				</S.userDetails>
 			</div>
-			<div>
-				<h5>{props.content}</h5>
-			</div>
-			<div>{props.likes}</div>
+			<S.content>{props.content}</S.content>
+			<Sp.like size={16} />
+			{props.likes ?? 0}
 			<div>
 				{props?.comments?.map((comment) => {
 					<Comment
@@ -35,8 +40,7 @@ const Comment = (props: IComment): JSX.Element => {
 					/>;
 				})}
 			</div>
-			END-------------------
-		</div>
+		</S.container>
 	);
 };
 
