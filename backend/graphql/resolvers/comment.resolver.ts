@@ -16,7 +16,6 @@ interface IMessage {
 const commentResolver = {
 	Query: {
 		allComments: async (): Promise<IComment[]> =>
-		
 			await Comment.find({}).populate("user"),
 	},
 	Mutation: {
@@ -79,7 +78,6 @@ const commentResolver = {
 			await Post.findByIdAndUpdate(post, {
 				$pull: { comments: id },
 			});
-
 			return await Comment.findByIdAndRemove(id);
 		},
 	},

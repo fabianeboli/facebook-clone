@@ -15,11 +15,13 @@ export const ALL_POSTS = gql`
 			likes
 			comments {
 				post
-				# user {
-				# id
-				# }
+				user {
+					firstName
+					lastName
+				}
 				date
 				content
+				likes
 			}
 		}
 	}
@@ -40,11 +42,13 @@ export const FIND_POST_BY_ID = gql`
 			likes
 			comments {
 				post
-				# user {
-				# id
-				# }
+				user {
+					firstName
+					lastName
+				}
 				date
 				content
+				likes
 			}
 		}
 	}

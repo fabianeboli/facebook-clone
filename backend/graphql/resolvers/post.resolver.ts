@@ -23,7 +23,10 @@ const postResolver = {
 			context: IContext
 		): Promise<IPost | null> => {
 			checkIfAuthenticated(context);
-			return await Post.findById(id).populate("user comments");
+			return await Post.findById(id).populate({
+				path: "user comments likedBy",
+				populate: { path: "user", model: "User" },
+			});
 		},
 		isLikedByUser: async (
 			_root: any,

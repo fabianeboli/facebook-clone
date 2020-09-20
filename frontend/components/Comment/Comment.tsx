@@ -27,12 +27,12 @@ const Comment = (props: IComment): JSX.Element => {
 			</div>
 			<S.content>{props.content}</S.content>
 			<Sp.like size={16} />
-			{props.likes ?? 0}
+			{props.likes}
 			<div>
 				{props?.comments?.map((comment) => {
 					<Comment
-						firstName={comment.firstName}
-						lastName={comment.lastName}
+						firstName={comment.user.firstName}
+						lastName={comment.user.lastName}
 						content={comment.content}
 						date={comment.date}
 						likes={comment.likes}

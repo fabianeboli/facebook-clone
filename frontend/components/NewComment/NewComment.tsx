@@ -23,6 +23,7 @@ const NewComment: FC<INewComment> = (props: INewComment): JSX.Element => {
 
 	const submit = async (event) => {
 		event.preventDefault();
+		console.log(localStorage.getItem("id"), props.id, content);
 		await addComment({
 			variables: {
 				user: localStorage.getItem("id"),
