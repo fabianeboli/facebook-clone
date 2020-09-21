@@ -17,6 +17,14 @@ const commentResolver = {
 	Query: {
 		allComments: async (): Promise<IComment[]> =>
 			await Comment.find({}).populate("user"),
+		isCommentLikedByUser: async (
+			_root: any,
+			{ id, userId }: any,
+			context: IContext
+		) => {
+			checkIfAuthenticated(context);
+			return await Comment.find({ _id: id, likedBy: userId }).count();
+		},
 	},
 	Mutation: {
 		addComment: async (
@@ -52,21 +60,27 @@ const commentResolver = {
 		},
 		likeComment: async (
 			_root: any,
-			{ id }: { id: string },
+			{ id, userId }: { id: string; userId: string },
 			context: IContext
 		): Promise<IComment | null> => {
 			checkIfAuthenticated(context);
 
-			return await Comment.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+			return await Comment.findByIdAndUpdate(id, {
+				$inc: { likes: 1 },
+				$push: { likedBy: userId },
+			});
 		},
 		unlikeComment: async (
 			_root: any,
-			{ id }: { id: string },
+			{ id, userId }: { id: string; userId: string },
 			context: IContext
 		): Promise<IComment | null> => {
 			checkIfAuthenticated(context);
 
-			return await Comment.findByIdAndUpdate(id, { $inc: { likes: -1 } });
+			return await Comment.findByIdAndUpdate(id, {
+				$inc: { likes: -1 },
+				$pull: { likedBy: userId },
+			});
 		},
 		removeComment: async (
 			_root: any,

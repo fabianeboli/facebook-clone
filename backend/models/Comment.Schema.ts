@@ -16,6 +16,7 @@ const CommentSchema = new Schema({
 	content: { type: String, required: true },
 	date: { type: String, required: true },
 	likes: { type: Number, default: 0 },
+	likedBy: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
 	comments: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
 });
 

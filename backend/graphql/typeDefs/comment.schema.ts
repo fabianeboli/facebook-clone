@@ -13,12 +13,13 @@ const commentSchema = gql`
 	type Query {
 		allComments: [Comment]!
 		findComment(id: String!): [Comment]!
+		isCommentLikedByUser(id: String!, userId: String!): Boolean
 	}
 	type Mutation {
 		addComment(user: String!, post: String!, content: String!): Comment!
 		editComment(id: String!, content: String!): Comment!
-		likeComment(id: String!): Comment!
-		unlikeComment(id: String!): Comment!
+		likeComment(id: String!, userId: String!): Comment!
+		unlikeComment(id: String!, userId: String!): Comment!
 		removeComment(post: String!, id: String!): Comment
 	}
 `;
