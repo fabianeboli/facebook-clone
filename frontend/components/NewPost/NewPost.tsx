@@ -20,7 +20,7 @@ const NewPost = (): JSX.Element => {
 			<S.form>
 				<S.textarea
 					rows={6}
-					cols={25}
+					cols={35}
 					value={content}
 					onChange={({ target }) => setContent(target.value)}
 					placeholder="Write new Post..."

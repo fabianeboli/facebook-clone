@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { READ_CHAT, SEND_MESSAGE } from "../../queries/chat.query";
 import Message, { IMessage } from "../Message/Message";
 import { v4 as uuid } from "uuid";
+import * as S from "./Chat.style";
 
 interface IChat {
 	friendsId: string;
@@ -46,7 +47,7 @@ const Chat = ({ friendsId }: IChat): JSX.Element => {
 					sendDate={message.sendDate}
 				/>
 			))}
-			<S.input
+			<input
 				type="text"
 				value={message}
 				onChange={({ target }) => setMessage(target.value)}

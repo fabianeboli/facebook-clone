@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const container = styled.div`
 	display: flex;
+	margin: 3% auto;
 `;
 
 export const form = styled.form`
@@ -17,10 +18,12 @@ export const textarea = styled.textarea`
 	background-color: ${(p) => p.theme.contrastPrimary};
 	color: ${(p) => p.theme.backgroundDark};
 	margin: 0 auto;
-	font-size: calc(1.1em + 0.6vw);
+	font-size: calc(0.75em + 0.6vw);
 	resize: none;
 	border-radius: 8px 8px 0 0;
 	outline: none;
+	
+
 `;
 
 export const button = styled.button`

@@ -69,12 +69,12 @@ const Comment = (props: IComment): JSX.Element => {
 	return (
 		<S.container>
 			<S.commentsInfoContainer>
-				<S.userDetails>
-					<S.username>
+				<Sp.userDetails>
+					<Sp.username>
 						{props.firstName} {props.lastName}{" "}
-					</S.username>
-					<S.date>{props.date}</S.date>
-				</S.userDetails>
+					</Sp.username>
+					<Sp.date>{props.date}</Sp.date>
+				</Sp.userDetails>
 
 				<S.statusContainer>
 					<div>
@@ -98,6 +98,7 @@ const Comment = (props: IComment): JSX.Element => {
 				{props.comments?.map((comment) => {
 					<Comment
 						id={comment.id}
+						postId={comment.postId}
 						firstName={comment.user.firstName}
 						lastName={comment.user.lastName}
 						content={comment.content}

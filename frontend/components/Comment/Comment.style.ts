@@ -30,10 +30,3 @@ export const statusContainer = styled.div`
 	}
 `;
 
-export const userDetails = S.userDetails;
-
-export const username = S.username;
-
-export const date = S.date;
-
-export const content = S.content;
