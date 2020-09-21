@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_POST, ALL_POSTS } from "../../queries/post.query";
+import * as S from "./NewPost.style";
 
 const NewPost = (): JSX.Element => {
 	const [content, setContent] = useState<string>("");
@@ -15,21 +16,21 @@ const NewPost = (): JSX.Element => {
 	};
 
 	return (
-		<div>
-		
-			<form>
-				<textarea
-					rows={7}
-					cols={30}
+		<S.container>
+			<S.form>
+				<S.textarea
+					rows={6}
+					cols={25}
 					value={content}
 					onChange={({ target }) => setContent(target.value)}
 					placeholder="Write new Post..."
 				/>
-				<button type="submit" onClick={submit}>
+
+				<S.button type="submit" onClick={submit}>
 					Submit
-				</button>
-			</form>
-		</div>
+				</S.button>
+			</S.form>
+		</S.container>
 	);
 };
 

@@ -14,6 +14,7 @@ export const ALL_POSTS = gql`
 			content
 			likes
 			comments {
+				id
 				post
 				user {
 					firstName
@@ -41,6 +42,7 @@ export const FIND_POST_BY_ID = gql`
 			content
 			likes
 			comments {
+				id
 				post
 				user {
 					firstName

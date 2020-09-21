@@ -135,6 +135,8 @@ const Post = (props: IPost): JSX.Element => {
 				{props.comments.map((comment) => (
 					<Comment
 						key={uuid()}
+						id={comment.id}
+						postId={props.id}
 						firstName={comment.user.firstName}
 						lastName={comment.user.lastName}
 						content={comment.content}
