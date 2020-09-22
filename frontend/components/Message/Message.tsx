@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 export interface IMessage {
 	author: string;
 	message: string;

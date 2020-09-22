@@ -129,7 +129,6 @@ const Post = (props: IPost): JSX.Element => {
 					)}
 				</S.optionButton>
 			</S.optionsContainer>
-			{console.log(props.comments)}
 			<div>
 				{toggleComment && <div>{<NewComment id={props.id} />}</div>}
 				{props.comments.map((comment) => (

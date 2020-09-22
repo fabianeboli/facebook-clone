@@ -6,9 +6,11 @@ import Posts from "../components/Posts/Posts";
 
 const main = (): JSX.Element => {
 	return (
-		<div>
-			<NewPost />
-			<Posts />
+		<div style={{ display: "flex" }}>
+			<main style={{ flex: "1", overflow: "auto" }}>
+				<NewPost />
+				<Posts />
+			</main>
 			<Dropdown title="My Friends">
 				<Friends />
 			</Dropdown>

@@ -8,16 +8,24 @@ export const container = styled.div<{ active: boolean }>`
 		props.active ? "translateX(0%)" : "translateX(100%)"};
 	transition: visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
 	position: fixed;
-	top: 6em;
+	top: 0em;
 	right: 0px;
-	width: 25%;
+	width: 75%;
 	height: 100vh;
 	background-color: ${(p) => p.theme.darkBackground};
 	color: ${(p) => p.theme.foregroundPrimary};
 	z-index: 1000000000000000;
 	padding: 0.5rem;
-	overflow: hidden;
 	text-align: center;
+	overflow-y: auto;
+	touch-action: pan-y;
+
+	@media (min-width: ${(p) => p.theme.nonMobileScreen}) {
+		position: sticky;
+		top: 0em;
+		width: 15% ;
+		right: 0px;
+	}
 `;
 
 export const title = styled.p`

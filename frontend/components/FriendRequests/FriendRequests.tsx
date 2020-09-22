@@ -51,7 +51,6 @@ const FriendRequests = () => {
 	return (
 		<div>
 			<h2>My friends Requests</h2>
-			{console.log(data.findUserFriendsRequestsById[0])}
 			{data.findUserFriendsRequestsById[0].friendRequests.map(
 				(friend: IFriend) => (
 					<>

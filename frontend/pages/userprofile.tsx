@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Dropdown from "../components/Dropdown/Dropdown";
 import FriendRequests from "../components/FriendRequests/FriendRequests";
 import Friends from "../components/Friends/Friends";
 import UserProfile from "../components/UserProfile/UserProfile";
@@ -15,9 +16,7 @@ const userProfile = (): JSX.Element => {
 			<UserProfile id={id} />
 			<FriendRequests />
 
-			<aside>
-				<Friends />
-			</aside>
+		
 		</div>
 	);
 };

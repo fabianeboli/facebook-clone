@@ -18,6 +18,7 @@ export const theme: DefaultTheme = {
 	message: "#4C9FFF",
 	warning: "#FF9D00",
 	error: "#EC3A37",
+	nonMobileScreen: "768px",
 };
 
 export const GlobalStyle = createGlobalStyle`

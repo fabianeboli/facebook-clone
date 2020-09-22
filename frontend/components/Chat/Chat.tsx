@@ -32,7 +32,6 @@ const Chat = ({ friendsId }: IChat): JSX.Element => {
 	};
 
 	if (loading) return <div>loading...</div>;
-	console.log("DATA CHAT", data.readChat.messages);
 
 	const messages = data.readChat.messages;
 

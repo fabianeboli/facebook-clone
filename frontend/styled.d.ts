@@ -18,6 +18,7 @@ declare module "styled-components" {
 		confirmDisabled: string;
 		message: string;
 		warning: string;
-		error: string
+		error: string;
+		nonMobileScreen: string;
 	}
 }
