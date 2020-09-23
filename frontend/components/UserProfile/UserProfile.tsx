@@ -36,25 +36,31 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 	return (
 		<S.container>
 			<S.profileContainer>
-				<img src={user.avatar || "/images/user-solid.svg"} />
-				<S.info>
-					Name{" "}
-					<S.highlight>
-						{" "}
-						{user.firstName} {user.lastName}{" "}
-					</S.highlight>{" "}
-				</S.info>
-				<S.info>
-					{" "}
-					Email <S.highlight>{user.email} </S.highlight>{" "}
-				</S.info>
-				<S.info>
-					{" "}
-					Gender <S.highlight>{user.gender} </S.highlight>{" "}
-				</S.info>
-				<S.info>
-					Date of Birth <S.highlight>{user.dateOfBirth} </S.highlight>{" "}
-				</S.info>
+				<S.infoDetails>
+					<img src={user.avatar || "/images/user-solid.svg"} />
+
+					<div>
+						<S.info>
+							Name{" "}
+							<S.highlight>
+								{" "}
+								{user.firstName} {user.lastName}{" "}
+							</S.highlight>{" "}
+						</S.info>
+						<S.info>
+							{" "}
+							Email <S.highlight>{user.email} </S.highlight>{" "}
+						</S.info>
+						<S.info>
+							{" "}
+							Gender <S.highlight>{user.gender} </S.highlight>{" "}
+						</S.info>
+						<S.info>
+							Date of Birth <S.highlight>{user.dateOfBirth} </S.highlight>{" "}
+						</S.info>
+					</div>
+				</S.infoDetails>
+
 				<h3> Change Avatar</h3>
 				{localStorage.getItem("id") === id && (
 					<input
@@ -67,18 +73,16 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 					<h3>{user.firstName}'s friends </h3>
 					<S.friendContainer>
 						{user.friends.map((friend: IFriend) => (
-							<div key={uuid()}>
-								<Link href={`/userprofile/${friend.id}`}>
-									<a>
-										<Popup>
-											{friend.firstName} {friend.lastName}
-										</Popup>
-										<S.friendAvatar
-											src={friend.avatar || "/images/user-solid.svg"}
-										/>
-									</a>
-								</Link>
-							</div>
+							<Link key={uuid()} href={`/userprofile/${friend.id}`}>
+								<a>
+									<Popup>
+										{friend.firstName} {friend.lastName}
+									</Popup>
+									<S.friendAvatar
+										src={friend.avatar || "/images/user-solid.svg"}
+									/>
+								</a>
+							</Link>
 						))}
 					</S.friendContainer>
 				</div>

@@ -11,6 +11,7 @@ import {
 	DECLINE_FRIEND_REQUEST,
 } from "../../queries/friendRequest.query";
 import * as S from "./FriendRequest.style";
+import Popup from "../Popup/Popup";
 
 const FriendRequests = () => {
 	const [id, setId] = useState<string>();
@@ -54,19 +55,22 @@ const FriendRequests = () => {
 			{data.findUserFriendsRequestsById[0].friendRequests.map(
 				(friend: IFriend) => (
 					<>
-						<Friend
-							key={uuid()}
-							id={friend.id}
-							firstName={friend.firstName}
-							lastName={friend.lastName}
-							avatar={friend.avatar}
-						/>
-						<button onClick={() => handleAcceptRequest(friend.id)}>
-							Accept Friend Request
-						</button>
-						<button onClick={() => handleDeclineRequest(friend.id)}>
-							Decline Friend Request
-						</button>
+						<div>
+							<Popup>
+								{friend.firstName} {friend.lastName}
+								<S.button onClick={() => handleAcceptRequest(friend.id)}>
+									<Popup>Accept Request</Popup>
+									<S.acceptFriendRequest size={18} />
+								</S.button>
+								<S.button onClick={() => handleDeclineRequest(friend.id)}>
+									<Popup>Decline Request</Popup>
+									<S.rejectFriendRequest size={18} />
+								</S.button>
+							</Popup>
+							<S.requestAvatar
+								src={friend.avatar || "/images/user-solid.svg"}
+							/>{" "}
+						</div>
 					</>
 				)
 			)}

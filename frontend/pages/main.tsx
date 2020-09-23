@@ -3,6 +3,7 @@ import Dropdown from "../components/Dropdown/Dropdown";
 import Friends from "../components/Friends/Friends";
 import NewPost from "../components/NewPost/NewPost";
 import Posts from "../components/Posts/Posts";
+import * as S from "./styles/layout.ts";
 
 const main = (): JSX.Element => {
 	return (

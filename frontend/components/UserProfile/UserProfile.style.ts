@@ -4,11 +4,26 @@ export const container = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	margin: 2.5%;
+	font-size: calc(1em + 0.3vw);
+	border-radius: 10px;
+`;
+
+export const infoDetails = styled.div`
+	display: flex;
+	padding: 0px;
+	align-content: center;
+	align-items: center;
+	justify-content: space-evenly;
+
+	& div {
+		margin-left: 10px;
+	}
 `;
 
 export const info = styled.h4`
 	font-weight: 400;
-	margin: 1% 2%;
+	margin: auto;
+	color: ${(p) => p.theme.foregroundSecondary};
 `;
 
 export const uploadFile = styled.input`
@@ -27,8 +42,9 @@ export const highlight = styled.span`
 `;
 
 export const friendAvatar = styled.img`
-	max-width: 25%;
-	max-height: 25%;
+	margin: 0;
+	max-width: 75%;
+	max-height: 75%;
 `;
 
 export const profileContainer = styled.div`
@@ -41,7 +57,9 @@ export const profileContainer = styled.div`
 `;
 
 export const friendContainer = styled.div`
+	display: flex;
 	background-color: ${(p) => p.theme.background};
 	padding: 15px;
 	border-radius: 15px;
+	
 `;
