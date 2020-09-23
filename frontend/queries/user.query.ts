@@ -22,6 +22,7 @@ export const FIND_USER_BY_ID = gql`
 			gender
 			dateOfBirth
 			friends {
+				id
 				firstName
 				lastName
 			}

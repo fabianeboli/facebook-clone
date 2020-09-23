@@ -10,6 +10,7 @@ import {
 	ACCEPT_FRIEND_REQUEST,
 	DECLINE_FRIEND_REQUEST,
 } from "../../queries/friendRequest.query";
+import * as S from "./FriendRequest.style";
 
 const FriendRequests = () => {
 	const [id, setId] = useState<string>();
@@ -48,9 +49,8 @@ const FriendRequests = () => {
 		declineRequest({ variables: { senderId: id, receiverId: requestId } });
 	};
 
-	return (
-		<div>
-			<h2>My friends Requests</h2>
+	const Requests = (
+		<S.container>
 			{data.findUserFriendsRequestsById[0].friendRequests.map(
 				(friend: IFriend) => (
 					<>
@@ -70,7 +70,14 @@ const FriendRequests = () => {
 					</>
 				)
 			)}
-		</div>
+		</S.container>
+	);
+
+	return (
+		<>
+			<h2>My friends Requests</h2>
+			{Requests}
+		</>
 	);
 };
 
