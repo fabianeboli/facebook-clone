@@ -23,17 +23,24 @@ const Navbar = ({ children }: INavbar): JSX.Element => {
 
 	return (
 		<>
-		
 			<S.container>
 				{id && (
 					<>
-						<Link href="/main">Main page</Link>
+						<Link href="/main">
+							<a>Main page</a>
+						</Link>
 
-						<Link href="/userprofile">your profile</Link>
+						<Link href={`/userprofile/${id}`}>
+							<a>your profile</a>
+						</Link>
 
-						<Link href="/users"> Users</Link>
+						<Link href="/users">
+							<a> Users</a>
+						</Link>
 						<button onClick={handleSignOut}>
-							<Link href="/">Sign Out</Link>
+							<Link href="/">
+								<a>Sign Out</a>
+							</Link>
 						</button>
 					</>
 				)}

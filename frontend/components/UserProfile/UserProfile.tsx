@@ -32,10 +32,9 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 
 	return (
 		<div>
-			<h1>User Profile</h1>
-			<figure>
-				<picture>{/* <img src={user.avatar} /> */}</picture>
-			</figure>
+			
+			<img src={user.avatar || "/images/user-solid.svg"} />
+
 			<h4>
 				Name: {user.firstName} {user.lastName}
 			</h4>
