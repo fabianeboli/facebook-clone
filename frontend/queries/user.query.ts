@@ -12,6 +12,15 @@ export const ALL_USERS = gql`
 	}
 `;
 
+export const FIND_USER_NAME_BY_ID = gql`
+	query findUserById($id: String!) {
+		findUserById(id: $id) {
+			firstName
+			lastName
+		}
+	}
+`;
+
 export const FIND_USER_BY_ID = gql`
 	query findUserById($id: String!) {
 		findUserById(id: $id) {

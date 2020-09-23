@@ -14,12 +14,12 @@ export const header = styled.h1`
 
 export const searchInput = styled.input`
 	display: block;
-	margin: 0 auto;
+	margin: 1% auto;
 	background-color: ${(p) => p.theme.contrastPrimary};
 	border: none;
 	outline: none;
 	border-radius: 4px;
-	width: calc(10em + 2.6vw);
+	width: calc(15em + 2.6vw);
 	height: 2em;
 	color: ${(p) => p.theme.darkBackground};
 `;

@@ -5,6 +5,7 @@ export const READ_CHAT = gql`
 		readChat(userIds: $userIds) {
 			messages {
 				author {
+					id
 					firstName
 				}
 				message

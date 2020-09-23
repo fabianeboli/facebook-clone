@@ -35,6 +35,7 @@ const Users = (): JSX.Element => {
 				type="text"
 				value={search}
 				onChange={({ target }) => setSearch(target.value)}
+				placeholder="Search for an user"
 			/>
 			<S.container>
 				{result?.data?.allUsers

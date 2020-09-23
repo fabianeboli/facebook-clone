@@ -24,6 +24,7 @@ const Friends = (): JSX.Element => {
 				<>
 					<Friend
 						key={uuid()}
+						id={friend.id}
 						firstName={friend.firstName}
 						lastName={friend.lastName}
 						avatar={friend.avatar}

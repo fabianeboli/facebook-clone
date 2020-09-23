@@ -1,9 +1,11 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { REMOVE_FROM_FRIENDS } from "../../../queries/user.query";
 import Chat from "../../Chat/Chat";
 import * as S from "./Friend.style";
 import { v4 as uuid } from "uuid";
+import Dropdown from "../../Dropdown/Dropdown";
+import Link from "next/link";
 
 export interface IFriend {
 	id?: string;
@@ -16,11 +18,16 @@ const Friend = (props: IFriend): JSX.Element => {
 	const [id, setId] = useState<string>("");
 	const [toggleChat, setToggleChat] = useState<boolean>(false);
 
+	useEffect(() => {
+		setId(localStorage.getItem("id"));
+	}, []);
+
 	const [removeFriend] = useMutation(REMOVE_FROM_FRIENDS);
 
 	const handleRemove = async (id: string, friendId: string) => {
 		await removeFriend({ variables: { id, friendId } });
 	};
+	console.log(props.id);
 
 	return (
 		<>
@@ -33,7 +40,9 @@ const Friend = (props: IFriend): JSX.Element => {
 					</S.userDetails>
 					<S.buttonsContainer>
 						<S.button onClick={() => setToggleChat(!toggleChat)}>
-							<S.message size={32} />
+							<Link href={`chat/${props.id}`}>
+								<S.message size={32} />
+							</Link>
 						</S.button>
 						<S.button onClick={() => handleRemove(id, props.id)}>
 							<S.removeFriend size={32} />
@@ -42,7 +51,7 @@ const Friend = (props: IFriend): JSX.Element => {
 				</S.innerContainer>
 			</S.container>
 
-			{toggleChat && <Chat key={uuid()} friendsId={props.id} />}
+			{/* {toggleChat && <Chat key={uuid()} friendsId={props.id} />} */}
 		</>
 	);
 };
