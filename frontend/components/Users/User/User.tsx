@@ -52,7 +52,7 @@ const User = (props: IUser): JSX.Element => {
 	return (
 		<S.container>
 			<div>
-				<S.avatar src={props.avatar || "/images/user-solid.svg"} />
+				<S.avatar src={props.avatar || "/images/user-solid.svg"} alt="Profile avatar" />
 			</div>
 
 			<div>

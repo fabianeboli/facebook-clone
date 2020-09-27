@@ -63,7 +63,9 @@ const client = new ApolloClient({
 	link: authLink.concat(uploadLink),
 	// link: splitLink,
 });
-
+// !TODO FIX FETCHING POSTS
+// !TODO ADD SUBSCRIPTIONS
+// !TODO WRITE TESTS
 const MyApp = ({ Component, pageProps }): JSX.Element => {
 	// eslint-disable-next-line react/prop-types
 	const store = useStore(pageProps.initialReduxStore);
