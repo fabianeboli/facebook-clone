@@ -28,6 +28,7 @@ export const FIND_USER_BY_ID = gql`
 			firstName
 			lastName
 			email
+			avatar
 			gender
 			dateOfBirth
 			friends {
@@ -102,11 +103,9 @@ export const ADD_USER = gql`
 
 export const UPLOAD_AVATAR = gql`
 	mutation uploadAvatar($id: String!, $file: Upload!) {
-		uploadAvatar(id: $id, file: $file) {
-			filename
-			mimetype
-			encoding
-		}
+		uploadAvatar(id: $id, file: $file) 
+			
+		
 	}
 `;
 

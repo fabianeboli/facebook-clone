@@ -15,6 +15,9 @@ const friendRequestSchema = gql`
 		acceptFriendRequest(senderId: String!, receiverId: String!): FriendRequest
 		declineFriendRequest(senderId: String!, receiverId: String!): FriendRequest
 	}
+	type Subscription {
+		friendRequestAdded: FriendRequest!
+	}
 `;
 
 export default friendRequestSchema;

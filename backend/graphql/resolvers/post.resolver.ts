@@ -1,12 +1,12 @@
-import { populate } from "./../../populate";
 import moment from "moment";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import Post, { IPost } from "../../models/Post.Schema";
-import { UserInputError } from "apollo-server-express";
+import { PubSub, UserInputError } from "apollo-server-express";
 import User from "../../models/User.Schema";
-import { query } from "express";
+import { pubsub } from "../../app";
+
 
 const postResolver = {
 	Query: {
@@ -48,6 +48,9 @@ const postResolver = {
 			}).populate("user");
 			try {
 				await foundUser?.update({ $push: { posts: post } });
+
+				pubsub.publish("POST_ADDED", { postAdded: post });
+
 				return await post.save();
 			} catch (error) {
 				throw new UserInputError(error.message, {
@@ -83,6 +86,11 @@ const postResolver = {
 			return await Post.findByIdAndDelete(id);
 		},
 	},
+	Subscription: {
+		postAdded: {
+			subscribe: () => pubsub.asyncIterator(["POST_ADDED"])
+		}
+	}
 };
 
 export default postResolver;

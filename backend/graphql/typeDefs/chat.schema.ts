@@ -19,6 +19,9 @@ const chatSchema = gql`
 		createChat(userIds: [String]!): Chat
 		sendMessage(userIds: [String!]!, author: String!, message: String!): Message
 	}
+	type Subscription {
+		messageAdded: Message	
+	}
 `;
 
 export default chatSchema;

@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
 import * as S from "./Navbar.style";
 import Link from "next/link";
+import { client } from "../../pages/_app";
 
 interface INavbar {
 	children: ReactNode;
@@ -18,6 +19,7 @@ const Navbar = ({ children }: INavbar): JSX.Element => {
 	const handleSignOut = async () => {
 		await router.push("/");
 		localStorage.clear();
+		client.resetStore();
 		location.reload();
 	};
 

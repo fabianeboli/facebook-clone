@@ -20,6 +20,9 @@ const postSchema = gql`
 		unlikePost(id: String!, userId: String!): Post
 		deletePost(id: String!): Post
 	}
+	type Subscription {
+		postAdded: Post!
+	}
 `;
 
 export default postSchema;

@@ -41,6 +41,14 @@ export const highlight = styled.span`
 	font-weight: 700;
 `;
 
+export const userAvatar = styled.img`
+	margin: 0;
+	width: calc(3.5em + 0.6vw);
+    height: calc(3.5em + 0.6vw);
+    border-radius: 4px;
+    margin-right: 1.5%;
+`;
+
 export const friendAvatar = styled.img`
 	margin: 0;
 	max-width: 75%;

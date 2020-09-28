@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { READ_CHAT, SEND_MESSAGE } from "../../queries/chat.query";
-import Message, { IMessage } from "../Message/Message";
+import Message from "../Message/Message";
 import { v4 as uuid } from "uuid";
 import * as S from "./Chat.style";
 import { FIND_USER_NAME_BY_ID } from "../../queries/user.query";

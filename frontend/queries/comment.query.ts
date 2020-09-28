@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const ALL_COMMENTS = gql`
+	query allComments {
+		allComments {
+			id
+			post
+			user {
+				firstName
+				lastName
+			}
+			date
+			content
+			likes
+		}
+	}
+`;
+
 export const IS_COMMENT_LIKED_BY_USER = gql`
 	query isCommentLikedByUser($id: String!, $userId: String!) {
 		isCommentLikedByUser(id: $id, userId: $userId)
@@ -9,6 +25,14 @@ export const IS_COMMENT_LIKED_BY_USER = gql`
 export const ADD_COMMENT = gql`
 	mutation addComment($user: String!, $post: String!, $content: String!) {
 		addComment(user: $user, post: $post, content: $content) {
+			content
+		}
+	}
+`;
+
+export const COMMENT_ADDED = gql`
+	subscription commentAdded($user: String!, $post: String!, $content: String!) {
+		commentAdded(user: $user, post: $post, content: $content) {
 			content
 		}
 	}

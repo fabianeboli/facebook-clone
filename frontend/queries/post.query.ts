@@ -70,6 +70,14 @@ export const ADD_POST = gql`
 	}
 `;
 
+export const POST_ADDED = gql`
+	subscription postAdded($content: String!) {
+		postAdded(content: $content) {
+			id
+		}
+	}
+`;
+
 export const LIKE_POST = gql`
 	mutation likePost($id: String!, $userId: String!) {
 		likePost(id: $id, userId: $userId) {

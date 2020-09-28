@@ -13,6 +13,8 @@ const Posts = (): JSX.Element => {
 		fetchPolicy: "cache-and-network",
 	});
 
+
+
 	if (result.loading) return <div>Loading...</div>;
 
 	return (

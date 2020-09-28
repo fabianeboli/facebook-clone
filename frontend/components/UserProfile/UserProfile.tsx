@@ -37,7 +37,7 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 		<S.container>
 			<S.profileContainer>
 				<S.infoDetails>
-					<img src={user.avatar || "/images/user-solid.svg"} />
+					<S.userAvatar src={user.avatar || "/images/user-solid.svg"} />
 
 					<div>
 						<S.info>

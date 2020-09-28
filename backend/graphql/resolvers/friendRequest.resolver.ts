@@ -4,11 +4,13 @@ import { IFriendRequest } from "./../../models/FriendRequest.Schema";
 import FriendRequest from "../../models/FriendRequest.Schema";
 import moment from "moment";
 import User from "../../models/User.Schema";
+import { pubsub } from "../../app";
 
 interface IContact {
 	sender: string;
 	receiver: string;
 }
+
 
 const friendResolver = {
 	Query: {
@@ -34,6 +36,10 @@ const friendResolver = {
 			});
 			await User.findByIdAndUpdate(receiver, {
 				$push: { friendRequests: friendRequest.sender },
+			});
+
+			pubsub.publish("FRIEND_REQUEST_ADDED", {
+				friendRequestAdded: friendRequest,
 			});
 		},
 		acceptFriendRequest: async (
@@ -82,6 +88,11 @@ const friendResolver = {
 				sender: senderId,
 				receiver: receiverId,
 			});
+		},
+	},
+	Subscription: {
+		friendRequestAdded: {
+			subscribe: () => pubsub.asyncIterator(["FRIEND_REQUEST_ADDED"]),
 		},
 	},
 };

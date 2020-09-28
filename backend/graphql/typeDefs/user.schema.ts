@@ -53,7 +53,7 @@ const userSchema = gql`
 			password: String
 			dateOfBirth: String
 		): User!
-		uploadAvatar(id: String!, file: Upload!): File
+		uploadAvatar(id: String!, file: Upload!): Boolean
 		deleteUser(id: String!): Boolean
 		removeFromFriends(id: String!, friendId: String!): User
 		login(email: String!, password: String!): Token!

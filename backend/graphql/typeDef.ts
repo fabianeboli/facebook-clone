@@ -5,7 +5,7 @@ import commentSchema from "./typeDefs/comment.schema";
 import chatSchema from "./typeDefs/chat.schema";
 import friendRequestSchema from "./typeDefs/friendRequest.schema";
 
-const typeDefs = mergeTypes(
+const typeDefs: any = mergeTypes(
 	[userSchema, postSchema, commentSchema, friendRequestSchema, chatSchema],
 	{ all: true }
 );

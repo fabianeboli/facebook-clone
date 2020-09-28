@@ -34,3 +34,15 @@ export const SEND_MESSAGE = gql`
 		}
 	}
 `;
+
+export const MESSAGE_ADDED = gql`
+	subscription messageAdded(
+		$userIds: [String!]!
+		$author: String!
+		$message: String!
+	) {
+		messageAdded(userIds: $userIds, author: $author, message: $message) {
+			id
+		}
+	}
+`;

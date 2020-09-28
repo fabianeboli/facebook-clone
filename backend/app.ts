@@ -4,15 +4,18 @@ import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer, PubSub } from "apollo-server-express";
 import moment from "moment";
 import jwt from "jsonwebtoken";
 import User from "./models/User.Schema";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
+import { createServer } from "http";
 
 dotenv.config();
 moment.locale("en-gb");
+
+export const pubsub = new PubSub();
 
 cloudinary.v2.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -44,16 +47,28 @@ const server = new ApolloServer({
 		}
 		return;
 	},
+	subscriptions: {
+		path: "/subscriptions"
+	},
+	playground: {
+		subscriptionEndpoint: "/subscriptions"
+	}
+
 });
 
 app.use(morgan("tiny"));
 app.use(cors());
-//populate();
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
-	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+const httpServer = createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port: 4000 }, () => {
+	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+	console.log(
+		`🚀 Subscriptions ready at ws://localhost:4000${server.subscriptionsPath}`
+	);
+});
 
 export default app;

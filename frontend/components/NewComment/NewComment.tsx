@@ -1,7 +1,10 @@
 import React, { useState, FC } from "react";
 import { useMutation } from "@apollo/client";
 import { FIND_POST_BY_ID } from "../../queries/post.query";
-import { ADD_COMMENT } from "../../queries/comment.query";
+import {
+	ADD_COMMENT,
+
+} from "../../queries/comment.query";
 import * as S from "./NewComment.style";
 
 interface INewComment {
@@ -10,6 +13,7 @@ interface INewComment {
 
 const NewComment: FC<INewComment> = (props: INewComment): JSX.Element => {
 	const [content, setContent] = useState<string>("");
+
 	const [addComment] = useMutation(ADD_COMMENT, {
 		refetchQueries: [
 			{
@@ -18,10 +22,10 @@ const NewComment: FC<INewComment> = (props: INewComment): JSX.Element => {
 					id: props.id,
 				},
 			},
-		],
+		],	
 	});
 
-	const submit = async (event) => {
+	const submit = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		await addComment({
 			variables: {

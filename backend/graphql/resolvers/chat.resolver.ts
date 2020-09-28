@@ -2,7 +2,7 @@ import { IContext } from "./../../environment.d";
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IChat, IMessage } from "./../../models/Chat.Schema";
 import Chat from "../../models/Chat.Schema";
-import moment from "moment";
+import { pubsub } from "../../app";
 
 const chatResolver = {
 	Query: {
@@ -29,12 +29,22 @@ const chatResolver = {
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
-			return await Chat.findOneAndUpdate(
+
+			const updatedChat = await Chat.findOneAndUpdate(
 				{ userIds: { $in: [...userIds] } },
 				{
 					$push: { messages: { author, message } },
 				}
 			);
+
+			pubsub.publish("MESSAGE_ADDED", { messageAdded: updatedChat });
+
+			return updatedChat;
+		},
+	},
+	Subscription: {
+		messageAdded: {
+			subscibe: () => pubsub.asyncIterator(["MESSAGE_ADDED"]),
 		},
 	},
 };

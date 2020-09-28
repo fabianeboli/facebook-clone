@@ -1,8 +1,10 @@
+import { PubSub } from "apollo-server-express";
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import Comment, { IComment } from "../../models/Comment.Schema";
 import moment from "moment";
 import Post from "../../models/Post.Schema";
+import { pubsub } from "../../app";
 
 interface IMessage {
 	id?: string;
@@ -43,6 +45,8 @@ const commentResolver = {
 			await Post.findByIdAndUpdate(post, {
 				$push: { comments: newComment._id },
 			});
+
+			pubsub.publish("COMMENT_ADDED", { commentAdded: newComment });
 
 			return await newComment.save();
 		},
@@ -95,6 +99,11 @@ const commentResolver = {
 			return await Comment.findByIdAndRemove(id);
 		},
 	},
+	Subscription: {
+		commentAdded: {
+			subscribe: () => pubsub.asyncIterator(["COMMENT_ADDED"])
+		}
+	}
 };
 
 export default commentResolver;

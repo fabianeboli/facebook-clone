@@ -22,6 +22,9 @@ const commentSchema = gql`
 		unlikeComment(id: String!, userId: String!): Comment!
 		removeComment(post: String!, id: String!): Comment
 	}
+	type Subscription {
+		commentAdded: Comment!
+	}
 `;
 
 export default commentSchema;

@@ -95,7 +95,8 @@ const userResolver = {
 						})
 					);
 				});
-				return await User.findByIdAndUpdate(id, { avatar: result.secure_url });
+				await User.findByIdAndUpdate(id, { avatar: result.secure_url });
+				return true;
 			} catch (err) {
 				throw new Error(err);
 			}

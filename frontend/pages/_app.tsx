@@ -7,17 +7,17 @@ import {
 	ApolloProvider,
 	split,
 } from "@apollo/client";
-//import { getMainDefinition } from "@apollo/client/utilities";
-import { setContext } from "apollo-link-context";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
-//import { WebSocketLink } from "@apollo/link-ws";
 import { createUploadLink } from "apollo-upload-client";
 import Head from "next/head";
 import Navbar from "../components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "../theme.style";
 import * as S from "./styles/_app.style";
+import { setContext } from "apollo-link-context";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { WebSocketLink } from "@apollo/client/link/ws";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -37,35 +37,38 @@ const uploadLink = createUploadLink({
 	uri: "http://localhost:4000/graphql",
 });
 
-// const wsLink = new WebSocketLink({
-// 	uri: "ws://localhost:4000/graphql",
-// 	option: {
-// 		reconnect: true,
-// 	},
-// });
+const wsLink = process.browser
+	? new WebSocketLink({
+			uri: "ws://localhost:4000/subscriptions",
+			options: {
+				reconnect: true,
+			},
+	  })
+	: null;
 
-// const splitLink = split(
-// 	({ query }) => {
-// 		const definition = getMainDefinition(query);
-// 		return (
-// 			definition.kind === "OperationDefinition" &&
-// 			definition.operation === "subscription"
-// 		);
-// 	},
-// 	wsLink,
-// 	authLink.concat(httpLink)
-// );
+const splitLink = process.browser
+	? split(
+			({ query }) => {
+				const definition = getMainDefinition(query);
+				return (
+					definition.kind === "OperationDefinition" &&
+					definition.operation === "subscription"
+				);
+			},
+			wsLink,
+			authLink.concat(uploadLink)
+	  )
+	: uploadLink;
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
 	cache: new InMemoryCache(),
+	link: splitLink,
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
-	link: authLink.concat(uploadLink),
-	// link: splitLink,
+	// link: authLink.concat(uploadLink),
 });
-// !TODO FIX FETCHING POSTS
-// !TODO ADD SUBSCRIPTIONS
-// !TODO WRITE TESTS
+
+// !TODO ADD PAGINATION
 const MyApp = ({ Component, pageProps }): JSX.Element => {
 	// eslint-disable-next-line react/prop-types
 	const store = useStore(pageProps.initialReduxStore);
