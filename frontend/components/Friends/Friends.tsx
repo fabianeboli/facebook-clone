@@ -16,20 +16,18 @@ const Friends = (): JSX.Element => {
 		pollInterval: 10000,
 	});
 
-	if (loading) return <div>Loading ... </div>;
+	if (loading) return <> </>;
 
 	return (
 		<div>
 			{data.findUserFriendsById[0].friends.map((friend: IFriend) => (
-				<>
-					<Friend
-						key={uuid()}
-						id={friend.id}
-						firstName={friend.firstName}
-						lastName={friend.lastName}
-						avatar={friend.avatar}
-					/>
-				</>
+				<Friend
+					key={uuid()}
+					id={friend.id}
+					firstName={friend.firstName}
+					lastName={friend.lastName}
+					avatar={friend.avatar}
+				/>
 			))}
 		</div>
 	);

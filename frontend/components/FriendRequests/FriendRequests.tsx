@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Friend, { IFriend } from "../Friends/Friend/Friend";
+import { IFriend } from "../Friends/Friend/Friend";
 import { useQuery, useMutation } from "@apollo/client";
 import {
 	FIND_USER_FRIEND_REQUESTS_BY_ID,
@@ -54,24 +54,20 @@ const FriendRequests = () => {
 		<S.container>
 			{data.findUserFriendsRequestsById[0].friendRequests.map(
 				(friend: IFriend) => (
-					<>
-						<div>
-							<Popup>
-								{friend.firstName} {friend.lastName}
-								<S.button onClick={() => handleAcceptRequest(friend.id)}>
-									<Popup>Accept Request</Popup>
-									<S.acceptFriendRequest size={18} />
-								</S.button>
-								<S.button onClick={() => handleDeclineRequest(friend.id)}>
-									<Popup>Decline Request</Popup>
-									<S.rejectFriendRequest size={18} />
-								</S.button>
-							</Popup>
-							<S.requestAvatar
-								src={friend.avatar || "/images/user-solid.svg"}
-							/>{" "}
-						</div>
-					</>
+					<div key={uuid()}>
+						<Popup>
+							{friend.firstName} {friend.lastName}
+							<S.button onClick={() => handleAcceptRequest(friend.id)}>
+								<Popup>Accept Request</Popup>
+								<S.acceptFriendRequest size={18} />
+							</S.button>
+							<S.button onClick={() => handleDeclineRequest(friend.id)}>
+								<Popup>Decline Request</Popup>
+								<S.rejectFriendRequest size={18} />
+							</S.button>
+						</Popup>
+						<S.requestAvatar src={friend.avatar || "/images/user-solid.svg"} />{" "}
+					</div>
 				)
 			)}
 		</S.container>

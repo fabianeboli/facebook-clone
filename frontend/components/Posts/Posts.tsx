@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post, { IPost } from "./Post/Post";
 import { ALL_POSTS } from "../../queries/post.query";
+import Spinner from "../Spinner/Spinner";
 
 const Posts = (): JSX.Element => {
 	const result = useQuery(ALL_POSTS, {
@@ -13,9 +14,7 @@ const Posts = (): JSX.Element => {
 		fetchPolicy: "cache-and-network",
 	});
 
-
-
-	if (result.loading) return <div>Loading...</div>;
+	if (result.loading) return <Spinner />;
 
 	return (
 		<div>

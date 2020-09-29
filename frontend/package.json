@@ -19,6 +19,7 @@
 		"apollo-link-context": "^1.0.20",
 		"apollo-upload-client": "^14.1.1",
 		"babel-jest": "^26.3.0",
+		"babel-plugin-styled-components": "^1.11.1",
 		"graphql": "^15.3.0",
 		"jest": "^26.4.2",
 		"jest-watch-typeahead": "^0.6.1",

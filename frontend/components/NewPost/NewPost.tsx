@@ -28,7 +28,6 @@ const NewPost = (): JSX.Element => {
 	});
 
 	const [addPost] = useMutation(ADD_POST, {
-		// refetchQueries: [{ query: ALL_POSTS }],
 		update: (store, response) => {
 			updateCacheWith(response.data.addPost);
 		},

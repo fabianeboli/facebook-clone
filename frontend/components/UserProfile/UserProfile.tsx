@@ -8,6 +8,7 @@ import * as S from "./UserProfile.style";
 import Popup from "../Popup/Popup";
 import Link from "next/link";
 import FriendRequests from "../FriendRequests/FriendRequests";
+import Spinner from "../Spinner/Spinner";
 
 interface IUserProfile {
 	id: string;
@@ -29,7 +30,7 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 		await uploadFile({ variables: { id, file } });
 	};
 
-	if (loading) return <div>Loading ...</div>;
+	if (loading) return <Spinner />;
 
 	const user = data.findUserById;
 
@@ -37,7 +38,10 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 		<S.container>
 			<S.profileContainer>
 				<S.infoDetails>
-					<S.userAvatar src={user.avatar || "/images/user-solid.svg"} />
+					<S.userAvatar
+						src={user.avatar || "/images/user-solid.svg"}
+						alt="User avatar"
+					/>
 
 					<div>
 						<S.info>
@@ -80,6 +84,7 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 									</Popup>
 									<S.friendAvatar
 										src={friend.avatar || "/images/user-solid.svg"}
+										alt={`${friend.firstName} ${friend.lastName}`}
 									/>
 								</a>
 							</Link>
@@ -91,6 +96,7 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 			<div>
 				{localStorage.getItem("id") === id && (
 					<div>
+						<h1>Your Posts </h1>
 						{user.posts.map((post: IPost) => (
 							<Post
 								key={uuid()}

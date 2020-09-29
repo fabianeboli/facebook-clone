@@ -14,10 +14,10 @@ import Head from "next/head";
 import Navbar from "../components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "../theme.style";
-import * as S from "./styles/_app.style";
 import { setContext } from "apollo-link-context";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
+import { updateId } from "../reducers/loginReducer";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -69,27 +69,44 @@ export const client = new ApolloClient({
 });
 
 // !TODO ADD PAGINATION
+// !TODO CHANGE USER PROFILE ROW and USERS, MOBILE
+// !TODO HEADER IN NAVBAR
 const MyApp = ({ Component, pageProps }): JSX.Element => {
 	// eslint-disable-next-line react/prop-types
 	const store = useStore(pageProps.initialReduxStore);
 
-	return (
-		<ThemeProvider theme={theme}>
-			<GlobalStyle />
-			<Provider store={store}>
-				<ApolloProvider client={client}>
-					<S.header>Facebook Clone</S.header>
+	//store.dispatch(updateId("XD"));
 
+	return (
+		<Provider store={store}>
+			<ApolloProvider client={client}>
+				<ThemeProvider theme={theme}>
+					<GlobalStyle />
 					<Head>
 						<title>Facebook clone </title>
+						<meta charSet="utf-8" />
+						{/* Use minimum-scale=1 to enable GPU rasterization */}
+						<meta
+							name="viewport"
+							content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+						/>
+						<meta
+							name="Description"
+							content="A facebook clone - personal project"
+						/>
 						<link rel="icon" href="/favicon.ico" />
+						<link
+							href="https://fonts.googleapis.com/css2?family=Passion+One&family=Noto+Sans:wght@400;700&display=swap"
+							rel="stylesheet"
+						></link>
 					</Head>
+
 					<Navbar>
 						<Component {...pageProps} />
 					</Navbar>
-				</ApolloProvider>
-			</Provider>
-		</ThemeProvider>
+				</ThemeProvider>
+			</ApolloProvider>
+		</Provider>
 	);
 };
 

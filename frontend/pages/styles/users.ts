@@ -1,5 +1,4 @@
-import { theme } from "./../../theme.style";
-import { styled } from "styled-components";
+import styled  from "styled-components";
 
 export const container = styled.div`
 	display: flex;

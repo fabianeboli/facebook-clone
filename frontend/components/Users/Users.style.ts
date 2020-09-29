@@ -4,8 +4,12 @@ export const container = styled.div`
 	display: grid;
 	justify-items: center;
 	justify-self: stretch;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	grid-template-rows: repeat(auto-fit, 1fr);
+
+	@media (min-width: ${p => p.theme.nonMobileScreen}) {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
 `;
 
 export const header = styled.h1`

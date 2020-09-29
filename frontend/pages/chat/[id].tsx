@@ -3,7 +3,6 @@ import React from "react";
 import Chat from "../../components/Chat/Chat";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Friends from "../../components/Friends/Friends";
-import UserProfile from "../../components/UserProfile/UserProfile";
 
 const chat = (): JSX.Element => {
 	const router = useRouter();

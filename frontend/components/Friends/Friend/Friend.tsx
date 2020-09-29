@@ -1,11 +1,9 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { REMOVE_FROM_FRIENDS } from "../../../queries/user.query";
-import Chat from "../../Chat/Chat";
 import * as S from "./Friend.style";
-import { v4 as uuid } from "uuid";
-import Dropdown from "../../Dropdown/Dropdown";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export interface IFriend {
 	id?: string;
@@ -32,7 +30,10 @@ const Friend = (props: IFriend): JSX.Element => {
 	return (
 		<>
 			<S.container>
-				<S.avatar src={props.avatar ?? "/images/user-solid.svg"} />
+				<S.avatar
+					src={props.avatar ?? "/images/user-solid.svg"}
+					alt={`${props.firstName} ${props.lastName} avatar`}
+				/>
 				<S.innerContainer>
 					<S.userDetails>
 						{" "}
@@ -50,8 +51,6 @@ const Friend = (props: IFriend): JSX.Element => {
 					</S.buttonsContainer>
 				</S.innerContainer>
 			</S.container>
-
-			{/* {toggleChat && <Chat key={uuid()} friendsId={props.id} />} */}
 		</>
 	);
 };

@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../queries/user.query";
-import * as S from "./SignIn.style.ts";
+import * as S from "./SignIn.style";
+import Spinner from "../Spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { updateId } from "../../reducers/loginReducer";
 
 const SignIn = (): JSX.Element => {
 	const [email, setEmail] = useState<string>("test@test.com");
 	const [password, setPassword] = useState<string>("testtest");
-	const [error, setError] = useState<boolean>(false);
-
 	const [key, setKey] = useState<string>("");
+	const state = useSelector(state => state);
+	const dispatch = useDispatch();
+
 
 	const [login, result] = useMutation(SIGN_IN, {
 		onError: (error) => {
-			setError(true);
 			alert(error.message);
 		},
 	});
 
 	useEffect(() => {
 		setKey(localStorage.getItem("token"));
+		dispatch(updateId(localStorage.getItem("id")));
 	}, []);
 
 	useEffect(() => {
+		
 		if (result.data) {
 			const token = result.data.login.value;
 			const id = result.data.login.id;
@@ -71,10 +76,9 @@ const SignIn = (): JSX.Element => {
 		</S.container>
 	);
 
-	if (result.loading) return <div>Loading...</div>;
-	const signOut = <button onClick={handleSignOut}>Sign Out</button>;
+	if (result.loading) return <Spinner />;
 
-	return key ? signOut : SignInForm;
+	return SignInForm;
 };
 
 export default SignIn;

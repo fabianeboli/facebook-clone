@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const header = styled.h1`
 	font-size: calc(1.5em + 0.9vw);

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../queries/user.query";
-import * as S from "./SignUp.style.ts";
+import * as S from "./SignUp.style";
 
 const SignUp = (): JSX.Element => {
 	const [addUser] = useMutation(ADD_USER);
 
-	const [firstName, setFirstName] = useState<string>("John");
-	const [lastName, setLastName] = useState<string>("SuperTestowy");
-	const [email, setEmail] = useState<string>("test231@test.pl");
-	const [password, setPassword] = useState<string>("test");
-	const [gender, setGender] = useState<string>("Male");
-	const [dateOfBirth, setDateOfBirth] = useState<string>("23-10-1000");
+	const [firstName, setFirstName] = useState<string>("");
+	const [lastName, setLastName] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [gender, setGender] = useState<string>("");
+	const [dateOfBirth, setDateOfBirth] = useState<string>("");
 
 	const submit = async (event) => {
 		event.preventDefault();

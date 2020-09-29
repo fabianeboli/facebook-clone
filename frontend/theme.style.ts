@@ -22,41 +22,9 @@ export const theme: DefaultTheme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
-	@font-face {
-    font-family: 'Fredoka One';
-    src: local('Fredoka One'), local('FredokaOne-Regular'),
-        url('/fonts/FredokaOne-Regular.woff2') format('woff2'),
-        url('/fonts/FredokaOne-Regular.woff') format('woff'),
-        url('/fonts/FredokaOne-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Noto Sans';
-    src: local('Noto Sans'), local('NotoSans'),
-        url('/fonts/NotoSans.woff2') format('woff2'),
-        url('/fonts/NotoSans.woff') format('woff'),
-        url('/fonts/NotoSans.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Noto Sans';
-    src: local('Noto Sans Bold'), local('NotoSans-Bold'),
-        url('/fonts/NotoSans-Bold.woff2') format('woff2'),
-        url('/fonts/NotoSans-Bold.woff') format('woff'),
-        url('/fonts/NotoSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
 	html, body {
-	
+		width: 100%;
+		height: 100%;
 		background-color: ${(p) => p.theme.background};
 		color: ${(p) => p.theme.foregroundPrimary};
 		font-family: 'Noto sans', sans-serif;

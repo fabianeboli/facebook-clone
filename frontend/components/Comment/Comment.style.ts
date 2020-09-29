@@ -7,7 +7,7 @@ export const container = styled.div`
 	border: 2px solid ${(p) => p.theme.contrastTertiary};
 	background-color: transparent;
 	border-radius: 8px;
-	margin: 1%;
+	margin: 2%;
 	padding: 5px;
 `;
 

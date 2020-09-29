@@ -48,16 +48,15 @@ const server = new ApolloServer({
 		return;
 	},
 	subscriptions: {
-		path: "/subscriptions"
+		path: "/subscriptions",
 	},
 	playground: {
-		subscriptionEndpoint: "/subscriptions"
-	}
-
+		subscriptionEndpoint: "/subscriptions",
+	},
 });
 
 app.use(morgan("tiny"));
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", methods: "POST", preflightContinue: false }));
 
 server.applyMiddleware({ app });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
 	ALL_USERS,
@@ -8,25 +8,21 @@ import {
 import User, { IUser } from "./User/User";
 import { v4 as uuid } from "uuid";
 import * as S from "./Users.style";
+import Spinner from "../Spinner/Spinner";
+import { useSelector } from "react-redux";
 
 const Users = (): JSX.Element => {
-	const [id, setId] = useState<string>("");
+	const id = useSelector((state) => state.login.state);
 	const [search, setSearch] = useState<string>("");
-
-	useEffect(() => {
-		setId(localStorage.getItem("id"));
-	}, []);
-
 	const result = useQuery(ALL_USERS);
-
 	const userFriends = useQuery(FIND_USER_FRIENDS_BY_ID, {
 		variables: { id },
 	});
-
 	const userFriendsRequests = useQuery(FIND_USER_FRIEND_REQUESTS_BY_ID, {
 		variables: { id },
 	});
-	if (result.loading) return <div>Loading...</div>;
+
+	if (result.loading) return <Spinner />;
 
 	return (
 		<>

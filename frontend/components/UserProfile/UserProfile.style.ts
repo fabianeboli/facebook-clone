@@ -3,9 +3,15 @@ import styled from "styled-components";
 export const container = styled.div`
 	display: flex;
 	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: column;
 	margin: 2.5%;
 	font-size: calc(1em + 0.3vw);
-	border-radius: 10px;
+
+	@media (min-width: ${(p) => p.theme.nonMobileScreen}) {
+		flex-direction: row !important;
+		align-items: flex-start !important;
+	}
 `;
 
 export const infoDetails = styled.div`
@@ -44,9 +50,9 @@ export const highlight = styled.span`
 export const userAvatar = styled.img`
 	margin: 0;
 	width: calc(3.5em + 0.6vw);
-    height: calc(3.5em + 0.6vw);
-    border-radius: 4px;
-    margin-right: 1.5%;
+	height: calc(3.5em + 0.6vw);
+	border-radius: 4px;
+	/* margin-right: 1.5%; */
 `;
 
 export const friendAvatar = styled.img`
@@ -57,9 +63,13 @@ export const friendAvatar = styled.img`
 
 export const profileContainer = styled.div`
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
+	align-content: flex-start;
+	flex: 20% 50% auto;
+	position: relative;
 	padding: 15px;
+	border-radius: 8px;
 	background-color: ${(p) => p.theme.darkBackground};
 	color: ${(p) => p.theme.foregroundPrimary};
 `;
@@ -69,5 +79,4 @@ export const friendContainer = styled.div`
 	background-color: ${(p) => p.theme.background};
 	padding: 15px;
 	border-radius: 15px;
-	
 `;

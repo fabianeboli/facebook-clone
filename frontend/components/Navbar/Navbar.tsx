@@ -1,8 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import * as S from "./Navbar.style";
 import Link from "next/link";
 import { client } from "../../pages/_app";
+import { useDispatch } from "react-redux";
+import { clearId } from "../../reducers/loginReducer";
 
 interface INavbar {
 	children: ReactNode;
@@ -10,6 +12,7 @@ interface INavbar {
 
 const Navbar = ({ children }: INavbar): JSX.Element => {
 	const [id, setId] = useState<string>("");
+	const dispatch = useDispatch();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -19,34 +22,34 @@ const Navbar = ({ children }: INavbar): JSX.Element => {
 	const handleSignOut = async () => {
 		await router.push("/");
 		localStorage.clear();
+		dispatch(clearId());
 		client.resetStore();
 		location.reload();
 	};
 
 	return (
 		<>
-			<S.container>
-				{id && (
-					<>
-						<Link href="/main">
-							<a>Main page</a>
-						</Link>
+			<S.header>Facebook Clone</S.header>
+			{id && (
+				<S.container>
+					<Link href="/main">
+						<S.a>Main page</S.a>
+					</Link>
 
-						<Link href={`/userprofile/${id}`}>
-							<a>your profile</a>
-						</Link>
+					<Link href={`/userprofile/${id}`}>
+						<S.a>your profile</S.a>
+					</Link>
 
-						<Link href="/users">
-							<a> Users</a>
+					<Link href="/users">
+						<S.a> Users</S.a>
+					</Link>
+					<button onClick={handleSignOut}>
+						<Link href="/">
+							<S.a>Sign Out</S.a>
 						</Link>
-						<button onClick={handleSignOut}>
-							<Link href="/">
-								<a>Sign Out</a>
-							</Link>
-						</button>
-					</>
-				)}
-			</S.container>
+					</button>
+				</S.container>
+			)}
 			<div>{children}</div>
 		</>
 	);

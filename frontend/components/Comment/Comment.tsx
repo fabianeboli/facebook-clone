@@ -6,7 +6,6 @@ import {
 	IS_COMMENT_LIKED_BY_USER,
 	LIKE_COMMENT,
 } from "../../queries/comment.query";
-import { input } from "../SignUp/SignUp.style";
 import { FIND_POST_BY_ID } from "../../queries/post.query";
 export interface IComment {
 	id: string;
