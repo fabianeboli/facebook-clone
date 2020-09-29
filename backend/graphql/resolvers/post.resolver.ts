@@ -7,7 +7,6 @@ import { PubSub, UserInputError } from "apollo-server-express";
 import User from "../../models/User.Schema";
 import { pubsub } from "../../app";
 
-
 const postResolver = {
 	Query: {
 		allPosts: async (): Promise<IPost[]> =>
@@ -16,7 +15,22 @@ const postResolver = {
 					path: "user comments likedBy",
 					populate: { path: "user", model: "User" },
 				})
-				.sort({ date: 1 }),
+				.sort({ date: -1 }),
+		feed: async (
+			_root: any,
+			{ offset, limit }: { offset: number ,limit: number },
+			context: IContext
+		) => {
+			checkIfAuthenticated(context);
+			return await Post.find({})
+				.sort({ date: -1 })
+				.skip(offset)
+				.limit(limit)
+				.populate({
+					path: "user comments likedBy",
+					populate: { path: "user", model: "User" },
+				});
+		},
 		findPostById: async (
 			_root: any,
 			{ id }: { id: string },
@@ -44,7 +58,7 @@ const postResolver = {
 			const post = new Post({
 				user: foundUser?._id,
 				content,
-				date: moment().format("LLL"),
+				date: moment().format("LLLL"),
 			}).populate("user");
 			try {
 				await foundUser?.update({ $push: { posts: post } });
@@ -88,9 +102,9 @@ const postResolver = {
 	},
 	Subscription: {
 		postAdded: {
-			subscribe: () => pubsub.asyncIterator(["POST_ADDED"])
-		}
-	}
+			subscribe: () => pubsub.asyncIterator(["POST_ADDED"]),
+		},
+	},
 };
 
 export default postResolver;

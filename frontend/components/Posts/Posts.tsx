@@ -2,23 +2,24 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post, { IPost } from "./Post/Post";
-import { ALL_POSTS } from "../../queries/post.query";
+import { FEED } from "../../queries/post.query";
 import Spinner from "../Spinner/Spinner";
+import * as S from "./Posts.style";
 
 const Posts = (): JSX.Element => {
-	const result = useQuery(ALL_POSTS, {
+	const { loading, data, fetchMore } = useQuery(FEED, {
 		variables: {
 			offset: 0,
-			limit: 15,
+			limit: 20,
 		},
 		fetchPolicy: "cache-and-network",
 	});
 
-	if (result.loading) return <Spinner />;
+	if (loading) return <Spinner />;
 
 	return (
-		<div>
-			{result.data.allPosts.map((post: IPost) => (
+		<>
+			{data.feed.map((post: IPost) => (
 				<Post
 					key={uuid()}
 					id={post.id}
@@ -29,7 +30,27 @@ const Posts = (): JSX.Element => {
 					comments={post.comments}
 				/>
 			))}
-		</div>
+			<S.buttonContainer>
+				<S.fetchMore
+					onClick={() =>
+						fetchMore({
+							variables: {
+								offset: data.feed.length,
+								limit: 20,
+							},
+							updateQuery: (prev, { fetchMoreResult }) => {
+								if (!fetchMoreResult) return prev;
+								return Object.assign({}, prev, {
+									feed: [...prev.feed, ...fetchMoreResult.feed],
+								});
+							},
+						})
+					}
+				>
+					More posts
+				</S.fetchMore>
+			</S.buttonContainer>
+		</>
 	);
 };
 

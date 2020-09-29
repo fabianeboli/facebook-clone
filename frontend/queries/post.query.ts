@@ -28,6 +28,34 @@ export const ALL_POSTS = gql`
 	}
 `;
 
+export const FEED = gql`
+	query feed($offset: Int!, $limit: Int!) {
+		feed(offset: $offset, limit: $limit) {
+			id
+			user {
+				id
+				firstName
+				lastName
+				avatar
+			}
+			date
+			content
+			likes
+			comments {
+				id
+				post
+				user {
+					firstName
+					lastName
+				}
+				date
+				content
+				likes
+			}
+		}
+	}
+`;
+
 export const FIND_POST_BY_ID = gql`
 	query findPostById($id: String!) {
 		findPostById(id: $id) {

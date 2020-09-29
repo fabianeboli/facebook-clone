@@ -11,6 +11,7 @@ const postSchema = gql`
 	}
 	type Query {
 		allPosts: [Post]
+		feed(offset: Int!,limit: Int!): [Post]
 		findPostById(id: String!): Post
 		isLikedByUser(id: String!, userId: String!): Boolean!
 	}

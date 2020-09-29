@@ -28,7 +28,7 @@ const friendResolver = {
 			const friendRequest = await new FriendRequest({
 				sender,
 				receiver,
-				date: moment().format("LLL"),
+				date: moment().format("LLLL"),
 			}).save();
 
 			await User.findByIdAndUpdate(sender, {
