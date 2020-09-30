@@ -1,10 +1,9 @@
-import { PubSub } from "apollo-server-express";
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import Comment, { IComment } from "../../models/Comment.Schema";
-import moment from "moment";
 import Post from "../../models/Post.Schema";
 import { pubsub } from "../../app";
+import dayjs from "dayjs";
 
 interface IMessage {
 	id?: string;
@@ -40,7 +39,7 @@ const commentResolver = {
 				user,
 				post,
 				content,
-				date: moment().format("LLL"),
+				date: dayjs().format("DD MMMM YYYY HH:mm:ss"),
 			});
 			await Post.findByIdAndUpdate(post, {
 				$push: { comments: newComment._id },
@@ -59,7 +58,7 @@ const commentResolver = {
 
 			return await Comment.findByIdAndUpdate(id, {
 				content,
-				date: moment().format("LLL"),
+				date: dayjs().format("DD MMMM YYYY HH:mm:ss"),
 			});
 		},
 		likeComment: async (

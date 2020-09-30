@@ -2,15 +2,14 @@ import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import { IFriendRequest } from "./../../models/FriendRequest.Schema";
 import FriendRequest from "../../models/FriendRequest.Schema";
-import moment from "moment";
 import User from "../../models/User.Schema";
 import { pubsub } from "../../app";
+import dayjs from "dayjs";
 
 interface IContact {
 	sender: string;
 	receiver: string;
 }
-
 
 const friendResolver = {
 	Query: {
@@ -28,7 +27,7 @@ const friendResolver = {
 			const friendRequest = await new FriendRequest({
 				sender,
 				receiver,
-				date: moment().format("LLLL"),
+				date: dayjs().format("DD MMMM YYYY HH:mm:ss"),
 			}).save();
 
 			await User.findByIdAndUpdate(sender, {

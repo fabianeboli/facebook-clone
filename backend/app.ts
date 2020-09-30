@@ -5,15 +5,15 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
 import { ApolloServer, PubSub } from "apollo-server-express";
-import moment from "moment";
 import jwt from "jsonwebtoken";
 import User from "./models/User.Schema";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
 import { createServer } from "http";
+import * as dayjs from "dayjs";
 
 dotenv.config();
-moment.locale("en-gb");
+dayjs.locale("en-gb");
 
 export const pubsub = new PubSub();
 
@@ -56,7 +56,13 @@ const server = new ApolloServer({
 });
 
 app.use(morgan("tiny"));
-app.use(cors({ origin: "http://localhost:3000", methods: "POST", preflightContinue: false }));
+app.use(
+	cors({
+		origin: "http://localhost:3000",
+		methods: "POST",
+		preflightContinue: false,
+	})
+);
 
 server.applyMiddleware({ app });
 

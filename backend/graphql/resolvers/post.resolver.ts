@@ -1,11 +1,11 @@
-import moment from "moment";
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { checkIfAuthenticated } from "./../../utils/helperFunctions";
 import { IContext } from "./../../environment.d";
 import Post, { IPost } from "../../models/Post.Schema";
-import { PubSub, UserInputError } from "apollo-server-express";
+import { UserInputError } from "apollo-server-express";
 import User from "../../models/User.Schema";
 import { pubsub } from "../../app";
+import dayjs from "dayjs";
 
 const postResolver = {
 	Query: {
@@ -18,7 +18,7 @@ const postResolver = {
 				.sort({ date: -1 }),
 		feed: async (
 			_root: any,
-			{ offset, limit }: { offset: number ,limit: number },
+			{ offset, limit }: { offset: number; limit: number },
 			context: IContext
 		) => {
 			checkIfAuthenticated(context);
@@ -58,7 +58,7 @@ const postResolver = {
 			const post = new Post({
 				user: foundUser?._id,
 				content,
-				date: moment().format("LLLL"),
+				date: dayjs().format("DD MMMM YYYY HH:mm:ss"),
 			}).populate("user");
 			try {
 				await foundUser?.update({ $push: { posts: post } });

@@ -17,7 +17,6 @@ import { GlobalStyle, theme } from "../theme.style";
 import { setContext } from "apollo-link-context";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
-import { updateId } from "../reducers/loginReducer";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
@@ -68,14 +67,9 @@ export const client = new ApolloClient({
 	// link: authLink.concat(uploadLink),
 });
 
-// !TODO ADD PAGINATION
-// !TODO CHANGE USER PROFILE ROW and USERS, MOBILE
-// !TODO HEADER IN NAVBAR
 const MyApp = ({ Component, pageProps }): JSX.Element => {
 	// eslint-disable-next-line react/prop-types
 	const store = useStore(pageProps.initialReduxStore);
-
-	//store.dispatch(updateId("XD"));
 
 	return (
 		<Provider store={store}>

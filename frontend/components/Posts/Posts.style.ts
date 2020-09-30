@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const container = styled.div`
-	display: flex;
-`;
-
 export const buttonContainer = styled.div`
 	display: flex;
 	justify-content: center;
@@ -17,9 +13,11 @@ export const fetchMore = styled.button`
 	border: none;
 	padding: 20px 200px;
 	margin-bottom: 3%;
-	
+	cursor: pointer; 
+
 	&:hover {
 		background-color: ${(p) => p.theme.hoverBackground};
+		color: ${p => p.theme.foregroundPrimary};
 		transition: 0.4s;
 	}
 `;

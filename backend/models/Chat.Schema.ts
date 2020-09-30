@@ -1,8 +1,7 @@
 import uniqueValidator from "mongoose-unique-validator";
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
-import moment from "moment";
-moment.locale("en-gb");
+import dayjs from "dayjs";
 
 export interface IMessage {
 	author: string;
@@ -25,7 +24,8 @@ const ChatSchema = new Schema({
 			sendDate: {
 				type: String,
 				required: true,
-				default: moment().format("LLL"),
+				default: dayjs().format("DD MMMM YYYY HH:mm:ss")
+				,
 			},
 		},
 	],
