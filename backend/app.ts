@@ -59,7 +59,7 @@ app.use(morgan("tiny"));
 app.use(
 	cors({
 		origin: process.env.FRONT,
-		methods: "POST",
+		
 		preflightContinue: false,
 	})
 );
