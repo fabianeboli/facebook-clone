@@ -31,7 +31,6 @@ const UserProfile = ({ id }: IUserProfile): JSX.Element => {
 	};
 
 	if (loading) return <Spinner />;
-
 	const user = data.findUserById;
 
 	return (

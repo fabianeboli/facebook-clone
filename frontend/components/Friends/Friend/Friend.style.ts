@@ -5,13 +5,16 @@ import { UserMinus } from "@styled-icons/fa-solid/UserMinus";
 
 export const container = styled(S.userContainer)`
 	justify-content: center;
-	align-content: stretch; 
+	margin:1% 5%;
+	align-content: baseline; 
+	align-items: center;
 `;
 
 export const innerContainer = styled.div`
 	margin: 0; 
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 `;
 
 export const avatar = S.avatar;
@@ -24,7 +27,7 @@ export const userDetails = styled(S.userDetails)`
 export const buttonsContainer = styled.div`
 	display: flex;
 	align-items: center;
-	align-content: center;
+	align-content: space-between;
 	justify-content: space-evenly;
 `;
 

@@ -58,7 +58,7 @@ const server = new ApolloServer({
 app.use(morgan("tiny"));
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: process.env.FRONT,
 		methods: "POST",
 		preflightContinue: false,
 	})
@@ -69,11 +69,9 @@ server.applyMiddleware({ app });
 const httpServer = createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
-httpServer.listen({ port: 4000 }, () => {
-	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
-	console.log(
-		`🚀 Subscriptions ready at ws://localhost:4000${server.subscriptionsPath}`
-	);
+httpServer.listen({ port: process.env.PORT }, () => {
+	console.log("🚀 Server ready");
+	console.log("🚀 Subscriptions ready");
 });
 
 export default app;

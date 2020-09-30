@@ -96,8 +96,6 @@ export const optionButton = styled.button`
 	cursor: pointer;
 	padding: 0 2.5%;
 	&:not(:last-of-type) {
-		/* flex: 0 0 20%; */
-		/* padding-right: 5vw; */
 		border-right: 2px solid ${(p) => p.theme.foregroundSecondary};
 	}
 `;

@@ -32,6 +32,8 @@ export const info = styled.h4`
 	color: ${(p) => p.theme.foregroundSecondary};
 `;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const uploadFile = styled.input`
 	background-color: ${(p) => p.theme.warning};
 	color: ${(p) => p.theme.foregroundPrimary};

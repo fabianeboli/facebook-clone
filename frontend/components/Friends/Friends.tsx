@@ -19,7 +19,7 @@ const Friends = (): JSX.Element => {
 	if (loading) return <> </>;
 
 	return (
-		<div>
+		<>
 			{data.findUserFriendsById[0].friends.map((friend: IFriend) => (
 				<Friend
 					key={uuid()}
@@ -29,7 +29,7 @@ const Friends = (): JSX.Element => {
 					avatar={friend.avatar}
 				/>
 			))}
-		</div>
+		</>
 	);
 };
 

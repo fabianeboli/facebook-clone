@@ -21,7 +21,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "pages/_app.ts", "next.config.js"
+    "**/*.tsx", "pages/_app.ts", "next.config.js", "components/NewPost/NewPost.style.ts"
   ],
   "exclude": [
     "node_modules"

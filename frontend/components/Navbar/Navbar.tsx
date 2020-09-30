@@ -29,7 +29,7 @@ const Navbar = ({ children }: INavbar): JSX.Element => {
 
 	return (
 		<>
-			<S.header>Facebook Clone</S.header>
+			<S.header>CloneBook</S.header>
 			{id && (
 				<S.container>
 					<Link href="/main">

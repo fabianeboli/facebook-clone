@@ -22,7 +22,8 @@ export const buttonContainer = styled.div`
 	margin: 2%;
 `;
 
-export const button = styled.button`
+export const button = styled.button<{active: boolean}>`
+	visibility: ${p => p.active ? "hidden" :"visible"};
 	background-color: ${(p) => p.theme.background};
 	color: ${(p) => p.theme.hoverBackground};
 	border: none;
@@ -41,6 +42,7 @@ export const showProfile = styled(SearchPlus)`
 `;
 
 export const friendRequest = styled(UserPlus)`
+
 	color: ${(p) => p.theme.confirm};
 `;
 

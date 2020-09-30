@@ -4,6 +4,7 @@ import { ADD_FRIEND_REQUEST } from "../../../queries/friendRequest.query";
 import { FIND_USER_FRIEND_REQUESTS_BY_ID } from "../../../queries/user.query";
 import * as S from "./User.style";
 import Link from "next/link";
+import { useState } from "react";
 
 export interface IUser {
 	loggedUserId: string;
@@ -19,6 +20,8 @@ export interface IUser {
 }
 
 const User = (props: IUser): JSX.Element => {
+	const [sentRequest, setSentRequest] = useState<boolean>(false);
+
 	const [addFriendRequest] = useMutation(ADD_FRIEND_REQUEST, {
 		refetchQueries: [
 			{ query: FIND_USER_FRIEND_REQUESTS_BY_ID, variables: { id: props.id } },
@@ -29,6 +32,7 @@ const User = (props: IUser): JSX.Element => {
 		addFriendRequest({
 			variables: { sender: props.loggedUserId, receiver: props.id },
 		});
+		setSentRequest(true);
 	};
 
 	const checkConditions = (
@@ -60,7 +64,7 @@ const User = (props: IUser): JSX.Element => {
 			</div>
 			<div>{props.email}</div>
 			<S.buttonContainer>
-				<S.button>
+				<S.button active={false}>
 					<Link href={`/userprofile/${props.id}`}>
 						<a>
 							<S.showProfile size={24} />
@@ -74,7 +78,7 @@ const User = (props: IUser): JSX.Element => {
 					props.userFriendsRequests,
 					props.userFriends
 				) && (
-					<S.button onClick={handleSendFriendRequest}>
+					<S.button active={sentRequest} onClick={handleSendFriendRequest}>
 						{" "}
 						<S.friendRequest size={24} />{" "}
 					</S.button>

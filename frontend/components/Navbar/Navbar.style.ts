@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const header = styled.h1`
 	font-size: calc(1.5em + 0.9vw);
-	font-family: "Passion One";
+	font-family: "Passion One", sans-serif;
 	letter-spacing: 6px;
 	text-transform: uppercase;
 	margin: 0;

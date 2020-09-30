@@ -1,9 +1,8 @@
-import styles from "../styles/Home.module.css";
 import React, { useEffect, useState } from "react";
 import SignIn from "../components/SignIn/SignIn";
 import SignUp from "../components/SignUp/SignUp";
 import { useRouter } from "next/router";
-import * as S from "./styles/index.style";
+import * as S from "../styles/index.style";
 
 export default function Home(): JSX.Element {
 	const [id, setId] = useState<string>("");
@@ -11,9 +10,8 @@ export default function Home(): JSX.Element {
 
 	useEffect(() => {
 		setId(localStorage.getItem("id"));
-		id && router.push('/main');
+		id && router.push("/main");
 	}, [id]);
-
 
 	return (
 		<>

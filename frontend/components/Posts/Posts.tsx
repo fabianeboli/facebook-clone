@@ -38,7 +38,10 @@ const Posts = (): JSX.Element => {
 								offset: data.feed.length,
 								limit: 20,
 							},
-							updateQuery: (prev, { fetchMoreResult }) => {
+							updateQuery: (
+								prev: any,
+								{ fetchMoreResult }: { fetchMoreResult: any }
+							) => {
 								if (!fetchMoreResult) return prev;
 								return Object.assign({}, prev, {
 									feed: [...prev.feed, ...fetchMoreResult.feed],

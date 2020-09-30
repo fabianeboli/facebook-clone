@@ -1,4 +1,7 @@
-import { createGlobalStyle, DefaultTheme } from "styled-components";
+import {
+	createGlobalStyle,
+	DefaultTheme,
+} from "styled-components";
 
 // taken from shades of purple. https://github.com/ahmadawais/shades-of-purple-vscode
 export const theme: DefaultTheme = {

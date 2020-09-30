@@ -30,9 +30,6 @@ const friendResolver = {
 				date: dayjs().format("DD MMMM YYYY HH:mm:ss"),
 			}).save();
 
-			await User.findByIdAndUpdate(sender, {
-				$push: { friendRequests: friendRequest.receiver },
-			});
 			await User.findByIdAndUpdate(receiver, {
 				$push: { friendRequests: friendRequest.sender },
 			});

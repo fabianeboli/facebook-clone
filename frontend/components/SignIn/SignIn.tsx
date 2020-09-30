@@ -3,14 +3,13 @@ import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../queries/user.query";
 import * as S from "./SignIn.style";
 import Spinner from "../Spinner/Spinner";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateId } from "../../reducers/loginReducer";
 
 const SignIn = (): JSX.Element => {
-	const [email, setEmail] = useState<string>("test@test.com");
-	const [password, setPassword] = useState<string>("testtest");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [key, setKey] = useState<string>("");
-	const state = useSelector(state => state);
 	const dispatch = useDispatch();
 
 

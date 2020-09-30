@@ -62,7 +62,7 @@ const Chat = ({ friendsId }: IChat): JSX.Element => {
 			))}
 			<S.sendContainer>
 				<S.messageInput
-					type="text"
+				
 					value={message}
 					onChange={({ target }) => setMessage(target.value)}
 				/>

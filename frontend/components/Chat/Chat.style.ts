@@ -17,6 +17,7 @@ export const title = styled.h1`
 	font-weight: bold;
 `;
 
+// 
 export const messageInput = styled.textarea`
 	background-color: ${(p) => p.theme.darkBackground};
 	border-radius: 18px;

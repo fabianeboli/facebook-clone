@@ -7,7 +7,7 @@ import {
 	IS_LIKED_BY_USER,
 	FIND_POST_BY_ID,
 	DELETE_POST,
-	ALL_POSTS,
+	FEED,
 } from "../../../queries/post.query";
 import NewComment from "../../NewComment/NewComment";
 import { v4 as uuid } from "uuid";
@@ -59,7 +59,7 @@ const Post = (props: IPost): JSX.Element => {
 	});
 
 	const [removePost] = useMutation(DELETE_POST, {
-		refetchQueries: [{ query: ALL_POSTS }],
+		refetchQueries: [{ query: FEED, variables: { offset: 0, limit: 20 } }],
 	});
 
 	const likeFunction = async () => {
@@ -115,13 +115,20 @@ const Post = (props: IPost): JSX.Element => {
 					disabled={data?.isLikedByUser ? unlikeLoading : likeLoading}
 					onClick={() => likeFunction()}
 				>
-					{" "}
-					<S.optionLike size={24} />
-					{data?.isLikedByUser ? <div> Unlike </div> : <div> Like</div>}
+					{data?.isLikedByUser ? (
+						<div>
+							<S.optionLike size={26} /> Unlike{" "}
+						</div>
+					) : (
+						<div>
+							<S.optionLike size={26} />
+							Like
+						</div>
+					)}
 				</S.optionButton>
 
 				<S.optionButton onClick={() => setToggleComment(!toggleComment)}>
-					<S.commentLike size={24} />
+					<S.commentLike size={26} />
 					{toggleComment ? (
 						<div>Close comment</div>
 					) : (

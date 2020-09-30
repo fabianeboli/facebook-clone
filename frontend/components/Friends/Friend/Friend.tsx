@@ -1,9 +1,11 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { REMOVE_FROM_FRIENDS } from "../../../queries/user.query";
+import {
+	FIND_USER_FRIENDS_BY_ID,
+	REMOVE_FROM_FRIENDS,
+} from "../../../queries/user.query";
 import * as S from "./Friend.style";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
 export interface IFriend {
 	id?: string;
@@ -20,12 +22,18 @@ const Friend = (props: IFriend): JSX.Element => {
 		setId(localStorage.getItem("id"));
 	}, []);
 
-	const [removeFriend] = useMutation(REMOVE_FROM_FRIENDS);
+	const [removeFriend] = useMutation(REMOVE_FROM_FRIENDS, {
+		refetchQueries: [
+			{
+				query: FIND_USER_FRIENDS_BY_ID,
+				variables: { id },
+			},
+		],
+	});
 
 	const handleRemove = async (id: string, friendId: string) => {
 		await removeFriend({ variables: { id, friendId } });
 	};
-	console.log(props.id);
 
 	return (
 		<>
@@ -41,7 +49,7 @@ const Friend = (props: IFriend): JSX.Element => {
 					</S.userDetails>
 					<S.buttonsContainer>
 						<S.button onClick={() => setToggleChat(!toggleChat)}>
-							<Link href={`chat/${props.id}`}>
+							<Link href={`/chat/${props.id}`}>
 								<S.message size={32} />
 							</Link>
 						</S.button>

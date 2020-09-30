@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useMutation, useSubscription } from "@apollo/client";
 import {
 	ADD_POST,
-	ALL_POSTS,
 	FEED,
 	POST_ADDED,
 } from "../../queries/post.query";
@@ -28,7 +27,6 @@ const NewPost = (): JSX.Element => {
 			});
 		}
 	};
-	console.log("CLIENT ", client);
 
 	useSubscription(POST_ADDED, {
 		onSubscriptionData: ({ subscriptionData }) => {

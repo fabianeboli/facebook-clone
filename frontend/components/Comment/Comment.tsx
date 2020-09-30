@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
 	IS_COMMENT_LIKED_BY_USER,
 	LIKE_COMMENT,
+	UNLIKE_COMMENT,
 } from "../../queries/comment.query";
 import { FIND_POST_BY_ID } from "../../queries/post.query";
 export interface IComment {
@@ -39,7 +40,7 @@ const Comment = (props: IComment): JSX.Element => {
 		],
 	});
 
-	const [unlike, { loading: unlikeLoading }] = useMutation(LIKE_COMMENT, {
+	const [unlike, { loading: unlikeLoading }] = useMutation(UNLIKE_COMMENT, {
 		refetchQueries: [
 			{ query: FIND_POST_BY_ID, variables: { id: props.postId } },
 			{

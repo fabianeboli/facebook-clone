@@ -14,9 +14,10 @@ export const form = styled.form`
 	justify-content: center;
 `;
 
+
 export const textarea = styled.textarea`
 	background-color: ${(p) => p.theme.contrastPrimary};
-	color: ${(p) => p.theme.backgroundDark};
+	color: ${(p) => p.theme.darkBackground};
 	margin: 0 auto;
 	font-size: calc(0.75em + 0.6vw);
 	resize: none;
@@ -37,6 +38,7 @@ export const button = styled.button`
 	text-transform: uppercase;
 	border-top: 2px solid ${(p) => p.theme.background};
 	color: ${(p) => p.theme.background};
+	cursor: pointer;
 
 	&:hover {
 		background-color: ${(p) => p.theme.contrastSecondary};

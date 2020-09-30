@@ -18,7 +18,7 @@ import { setContext } from "apollo-link-context";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
-const authLink = setContext((_, { headers }) => {
+const authLink: any = setContext((_, { headers }) => {
 	const token = localStorage.getItem("token");
 	return {
 		headers: {
@@ -29,16 +29,16 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink: HttpLink = new HttpLink({
-	uri: "http://localhost:4000/graphql",
+	uri: process.env.NEXT_PUBLIC_GRAPHQL,
 });
 
 const uploadLink = createUploadLink({
-	uri: "http://localhost:4000/graphql",
+	uri: process.env.NEXT_PUBLIC_GRAPHQL,
 });
 
 const wsLink = process.browser
 	? new WebSocketLink({
-			uri: "ws://localhost:4000/subscriptions",
+			uri: process.env.NEXT_PUBLIC_SUBSCRIPTIONS,
 			options: {
 				reconnect: true,
 			},
