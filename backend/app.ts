@@ -58,8 +58,8 @@ const server = new ApolloServer({
 app.use(morgan("tiny"));
 app.use(
 	cors({
-		origin: process.env.FRONT,
-		
+		origin: process.env.frontend,
+		methods: "POST",
 		preflightContinue: false,
 	})
 );
@@ -69,7 +69,7 @@ server.applyMiddleware({ app });
 const httpServer = createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
-httpServer.listen({ port: process.env.PORT }, () => {
+httpServer.listen({ port: process.env.PORT || 4000 }, () => {
 	console.log("🚀 Server ready");
 	console.log("🚀 Subscriptions ready");
 });
