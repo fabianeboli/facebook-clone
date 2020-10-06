@@ -36,14 +36,14 @@ const SignUp = (): JSX.Element => {
 						<S.input
 							type="text"
 							required
-							placeholder="First Name"
+							placeholder="first Name"
 							value={firstName}
 							onChange={({ target }) => setFirstName(target.value)}
 						/>
 						<S.input
 							type="text"
 							required
-							placeholder="Last Name"
+							placeholder="last Name"
 							value={lastName}
 							onChange={({ target }) => setLastName(target.value)}
 						/>
@@ -56,16 +56,16 @@ const SignUp = (): JSX.Element => {
 						/>
 
 						<S.input
-							type="text"
+							type="password"
 							required
-							placeholder="Password"
+							placeholder="password"
 							value={password}
 							onChange={({ target }) => setPassword(target.value)}
 						/>
 						<S.input
-							type="text"
+							type="date"
 							required
-							placeholder="Date of birth"
+							placeholder="date of birth"
 							value={dateOfBirth}
 							onChange={({ target }) => setDateOfBirth(target.value)}
 						/>

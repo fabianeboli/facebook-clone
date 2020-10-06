@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const page = styled.div`
+	overflow: hidden;
+`;
+
 export const container = styled.div`
 	display: flex;
 	z-index: 100000000000;
