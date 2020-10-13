@@ -4,7 +4,14 @@ import { ADD_USER } from "../../queries/user.query";
 import * as S from "./SignUp.style";
 
 const SignUp = (): JSX.Element => {
-	const [addUser] = useMutation(ADD_USER);
+	const [addUser] = useMutation(ADD_USER, {
+		onError: (error) => {
+			alert(error.message);
+		},
+		onCompleted: () => {
+			alert("New profile was created. Please sign in.");
+		}
+	});
 
 	const [firstName, setFirstName] = useState<string>("");
 	const [lastName, setLastName] = useState<string>("");
